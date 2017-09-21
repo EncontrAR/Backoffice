@@ -12,7 +12,8 @@ export default function authReducer(
 ) {
   switch (action.type) {
     case actions.LOGIN_SUCCESS:
-      return state.set('idToken', action.token);
+      localStorage.setItem('auth_token', action.payload.auth_token)
+      return null
     case actions.LOGOUT:
       return initState;
     default:

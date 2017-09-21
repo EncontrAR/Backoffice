@@ -2,15 +2,11 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Input from '../../components/uielements/input';
-import Checkbox from '../../components/uielements/checkbox';
 import Button from '../../components/uielements/button';
-import authAction from '../../redux/auth/actions';
-import Auth0 from '../../helpers/auth0';
-import Firebase from '../../helpers/firebase';
-import FirebaseLogin from '../../components/firebase';
+import authActions from '../../redux/auth/actions';
 import IntlMessages from '../../components/utility/intlMessages';
 
-const { login } = authAction;
+const { login } = authActions;
 
 class SignIn extends React.Component {
   state = {
@@ -26,7 +22,7 @@ class SignIn extends React.Component {
   }
   handleLogin = () => {
     const { login } = this.props;
-    login();
+    login("lucas@encontrar.com", "12345678");
     this.props.history.push('/dashboard');
   };
   render() {
@@ -40,60 +36,24 @@ class SignIn extends React.Component {
       <div className="isoSignInPage">
         <div className="isoLoginContent">
           <div className="isoLogoWrapper">
-            <Link to="/dashboard">
+            <Link to="/signin">
               <IntlMessages id="page.signInTitle" />
             </Link>
           </div>
 
           <div className="isoSignInForm">
             <div className="isoInputWrapper">
-              <Input size="large" placeholder="Username" />
+              <Input size="large" placeholder="Email" />
             </div>
 
             <div className="isoInputWrapper">
-              <Input size="large" type="password" placeholder="Password" />
+              <Input size="large" type="password" placeholder="Contraseña" />
             </div>
 
             <div className="isoInputWrapper isoLeftRightComponent">
-              <Checkbox>
-                <IntlMessages id="page.signInRememberMe" />
-              </Checkbox>
               <Button type="primary" onClick={this.handleLogin}>
                 <IntlMessages id="page.signInButton" />
               </Button>
-            </div>
-
-            <p className="isoHelperText">
-              <IntlMessages id="page.signInPreview" />
-            </p>
-
-            <div className="isoInputWrapper isoOtherLogin">
-              <Button onClick={this.handleLogin} type="primary btnFacebook">
-                <IntlMessages id="page.signInFacebook" />
-              </Button>
-              <Button onClick={this.handleLogin} type="primary btnGooglePlus">
-                <IntlMessages id="page.signInGooglePlus" />
-              </Button>
-
-              {Auth0.isValid &&
-                <Button
-                  onClick={() => {
-                    Auth0.login();
-                  }}
-                  type="primary btnAuthZero"
-                >
-                  <IntlMessages id="page.signInAuth0" />
-                </Button>}
-
-              {Firebase.isValid && <FirebaseLogin login={this.handleLogin} />}
-            </div>
-            <div className="isoCenterComponent isoHelperWrapper">
-              <Link to="/forgotpassword" className="isoForgotPass">
-                <IntlMessages id="page.signInForgotPass" />
-              </Link>
-              <Link to="/signup">
-                <IntlMessages id="page.signInCreateAccount" />
-              </Link>
             </div>
           </div>
         </div>
