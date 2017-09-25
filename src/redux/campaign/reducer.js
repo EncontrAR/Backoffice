@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import campaignActions, { INDEX_ALL_CAMPAIGNS } from './actions';
+import { INDEX_ALL_CAMPAIGNS } from './actions';
 
 const initState = new Map({
   campaigns: '',
