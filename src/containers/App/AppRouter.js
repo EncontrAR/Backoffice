@@ -9,6 +9,11 @@ class AppRouter extends React.Component {
       <Switch>
         <Route
           exact
+          path={`${url}/campaigns`}
+          component={asyncComponent(() => import("../Campaigns/Campaigns"))}
+        />
+        <Route
+          exact
           path={`${url}/`}
           component={asyncComponent(() => import("../Widgets/index.js"))}
         />

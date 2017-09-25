@@ -1,5 +1,6 @@
 import Auth from './auth/reducer';
 import App from './app/reducer';
+import Campaign from './campaign/reducer'
 import Mails from './mail/reducer';
 import Calendar from './calendar/reducer';
 import Box from './box/reducer';
@@ -15,6 +16,7 @@ import LanguageSwitcher from './languageSwitcher/reducer';
 export {
   Auth,
   App,
+  Campaign,
   ThemeSwitcher,
   LanguageSwitcher,
   Mails,
