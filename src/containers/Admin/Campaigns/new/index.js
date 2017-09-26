@@ -1,7 +1,7 @@
 import React from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Select, DatePicker } from 'antd';
+import { Button, Select, DatePicker } from 'antd';
 import InputBox from './input-box';
 import IntlMessages from '../../../../components/utility/intlMessages';
 import campaignActions from '../../../../redux/campaign/actions';
@@ -44,7 +44,6 @@ class NewCampaign extends React.Component {
                   <InputBox
                     label={<IntlMessages id="admin.campaign.new.title" />}
                     placeholder="Título de campaña"
-                    important
                   />
                 </div>
 
@@ -52,7 +51,6 @@ class NewCampaign extends React.Component {
                   <InputBox
                     label={<IntlMessages id="admin.campaign.new.description" />}
                     placeholder="Descripción de campaña"
-                    important
                   />
                 </div>
 
@@ -72,6 +70,10 @@ class NewCampaign extends React.Component {
                 >
                   { this.renderMissingPersonOptions() }
                 </Select>
+              </div>
+              <div>
+                <Button type="primary" size="small">Guardar</Button>
+                <Button type="danger" size="small">Cancelar</Button>
               </div>
             </div>
           </div>
