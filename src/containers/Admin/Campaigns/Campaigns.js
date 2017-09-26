@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Table from '../../components/uielements/table';
-import Pagination from '../../components/uielements/pagination';
-import Box from '../../components/utility/box';
-import ContentHolder from '../../components/utility/contentHolder';
-import Button from '../../components/uielements/button';
-import campaignActions from '../../redux/campaign/actions';
+import Table from '../../../components/uielements/table';
+import Pagination from '../../../components/uielements/pagination';
+import Box from '../../../components/utility/box';
+import ContentHolder from '../../../components/utility/contentHolder';
+import Button from '../../../components/uielements/button';
+import campaignActions from '../../../redux/campaign/actions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 

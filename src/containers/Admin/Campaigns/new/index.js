@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import campaignActions from '../../../redux/campaign/actions';
+import campaignActions from '../../../../redux/campaign/actions';
 import { connect } from 'react-redux';
 
 const {
