@@ -1,4 +1,9 @@
 {
+  "admin.sidebar.campaigns": "Campañas",
+  "admin.sidebar.users": "Usuarios",
+  "admin.sidebar.missing_people": "Personas perdidas",
+  "admin.sidebar.finders": "Finders",
+  "admin.sidebar.zones": "Zonas",
   "sidebar.email": "Email",
   "sidebar.ecommerce": "Ecommerce",
   "sidebar.shop": "Shop",

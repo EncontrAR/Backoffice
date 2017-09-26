@@ -4,6 +4,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { connect } from 'react-redux';
 
 import App from './containers/App/App';
+import Admin from './containers/Admin/Admin';
 import asyncComponent from './helpers/AsyncFunc';
 import Auth0 from './helpers/auth0';
 
@@ -74,6 +75,11 @@ const PublicRoutes = ({ history, isLoggedIn }) => {
         <RestrictedRoute
           path="/dashboard"
           component={App}
+          isLoggedIn={isLoggedIn}
+        />
+        <RestrictedRoute
+          path="/admin"
+          component={Admin}
           isLoggedIn={isLoggedIn}
         />
       </div>
