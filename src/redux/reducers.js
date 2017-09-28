@@ -12,6 +12,7 @@ import DynamicChartComponent from './dynamicEchart/reducer';
 import Ecommerce from './ecommerce/reducer';
 import ThemeSwitcher from './themeSwitcher/reducer';
 import LanguageSwitcher from './languageSwitcher/reducer';
+import Zone from './zone/reducer'
 
 export {
   Auth,
@@ -27,5 +28,6 @@ export {
   Contacts,
   Cards,
   DynamicChartComponent,
-  Ecommerce
+  Ecommerce,
+  Zone
 };

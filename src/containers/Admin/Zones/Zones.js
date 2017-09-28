@@ -4,48 +4,60 @@ import Pagination from '../../../components/uielements/pagination';
 import Box from '../../../components/utility/box';
 import ContentHolder from '../../../components/utility/contentHolder';
 import Button from '../../../components/uielements/button';
-import campaignActions from '../../../redux/campaign/actions';
+import zoneActions from '../../../redux/zone/actions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const {
-  indexAllCampaigns
-} = campaignActions;
+  indexAllZones
+} = zoneActions;
 
 const columns = [{
   title: 'Id',
   dataIndex: 'id',
   key: 'id'
 }, {
-  title: 'Título',
-  dataIndex: 'title',
-  key: 'title'
+  title: 'Zona',
+  dataIndex: 'name',
+  key: 'name'
 }, {
-  title: 'Descripción',
-  dataIndex: 'description',
-  key: 'description'
+  title: 'Latitud inferior',
+  dataIndex: 'south_west_lat',
+  key: 'south_west_lat'
+}, {
+  title: 'Longitud inferior',
+  dataIndex: 'south_west_long',
+  key: 'south_west_long'
+}, {
+  title: 'Latitud superior',
+  dataIndex: 'north_east_lat',
+  key: 'north_east_lat'
+}, {
+  title: 'Longitud superior',
+  dataIndex: 'north_east_long',
+  key: 'north_east_long'
 }];
 
 const itemsPerPage = 10
 
-class Campaigns extends Component {
+class Zones extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = { page: 1 };
 	}
 
-	loadCampaignsPage() {
-		this.props.indexAllCampaigns(this.state.page, itemsPerPage)
+	loadZonesPage() {
+		this.props.indexAllZones(this.state.page, itemsPerPage)
 	}
 
 	componentWillMount() {
-		this.loadCampaignsPage()
+		this.loadZonesPage()
 	}
 
 	pageSelect = (e) => {
 		this.setState(e)
-		this.loadCampaignsPage()
+		this.loadZonesPage()
 	}
   
   render() {
@@ -55,7 +67,7 @@ class Campaigns extends Component {
 		        <Table
 		          pagination={false}
 		          columns={ columns }
-		          dataSource={ this.props.campaigns }
+		          dataSource={ this.props.zones }
 		        />
       		</div>
           <Box>
@@ -67,7 +79,7 @@ class Campaigns extends Component {
             </ContentHolder>
           </Box>
           <Button type="primary">
-            <Link to={'/admin/campaigns/new'}>Nueva campaña</Link>
+            <Link to={'/admin/zones/new'}>Nueva zona</Link>
           </Button>
     	</div>
     );
@@ -75,12 +87,12 @@ class Campaigns extends Component {
 }
 
 function mapStateToProps(state) {
-  const { campaigns, total_pages, total_count } = state.Campaign;
+  const { zones, total_pages, total_count } = state.Zone;
   return {
-    campaigns: campaigns,
+    zones: zones,
     total_pages: total_pages,
     total_count: total_count
   };
 }
 
-export default connect(mapStateToProps, { indexAllCampaigns })(Campaigns);
+export default connect(mapStateToProps, { indexAllZones })(Zones);

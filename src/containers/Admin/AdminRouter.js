@@ -17,6 +17,21 @@ class AdminRouter extends React.Component {
           path={`${url}/campaigns/new`}
           component={asyncComponent(() => import("./Campaigns/new/index.js"))}
         />
+        <Route
+          exact
+          path={`${url}/finders`}
+          component={asyncComponent(() => import("./Finders/Finders"))}
+        />
+        <Route
+          exact
+          path={`${url}/users`}
+          component={asyncComponent(() => import("./Users/Users"))}
+        />
+        <Route
+          exact
+          path={`${url}/zones`}
+          component={asyncComponent(() => import("./Zones/Zones"))}
+        />
       </Switch>
     );
   }

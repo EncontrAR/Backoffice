@@ -28,7 +28,7 @@ const columns = [{
 
 const itemsPerPage = 10
 
-class Campaigns extends Component {
+class Users extends Component {
 
 	constructor(props) {
 		super(props);
@@ -67,7 +67,7 @@ class Campaigns extends Component {
             </ContentHolder>
           </Box>
           <Button type="primary">
-            <Link to={'/admin/campaigns/new'}>Nueva campaña</Link>
+            <Link to={'/dashboard/campaigns/new'}>Nueva campaña</Link>
           </Button>
     	</div>
     );
@@ -83,4 +83,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { indexAllCampaigns })(Campaigns);
+export default connect(mapStateToProps, { indexAllCampaigns })(Users);
