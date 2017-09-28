@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Table from '../../../components/uielements/table';
 import Pagination from '../../../components/uielements/pagination';
-import Box from '../../../components/utility/box';
-import ContentHolder from '../../../components/utility/contentHolder';
 import Button from '../../../components/uielements/button';
 import zoneActions from '../../../redux/zone/actions';
+import { Row, Col } from 'antd'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -36,51 +35,59 @@ const columns = [{
   title: 'Longitud superior',
   dataIndex: 'north_east_long',
   key: 'north_east_long'
+}, {
+  title: 'Acción',
+  key: 'action',
+  render: (text, record) => (
+    <span>
+      <Link to={`/admin/zones/${record.id}`}>Ver detalle</Link>
+    </span>
+  ),
 }];
 
-const itemsPerPage = 10
+const initialPage = 1
+const itemsPerPage = 1
 
 class Zones extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = { page: 1 };
-	}
+  componentWillMount() {
+    this.loadZonesPage(initialPage)
+  }
 
-	loadZonesPage() {
-		this.props.indexAllZones(this.state.page, itemsPerPage)
-	}
-
-	componentWillMount() {
-		this.loadZonesPage()
-	}
-
-	pageSelect = (e) => {
-		this.setState(e)
-		this.loadZonesPage()
+	loadZonesPage = (page) => {
+		this.props.indexAllZones(page, itemsPerPage)
 	}
   
   render() {
 		return (
     	<div>
-    		<div className="isoSimpleTable">
-		        <Table
-		          pagination={false}
-		          columns={ columns }
-		          dataSource={ this.props.zones }
-		        />
-      		</div>
-          <Box>
-          	<ContentHolder>
-          		<Pagination defaultPageSize={itemsPerPage} 
-          			defaultCurrent={this.state.page} 
-          			total={this.props.total_pages} 
-          			onChange={this.pageSelect} />
-            </ContentHolder>
-          </Box>
-          <Button type="primary">
-            <Link to={'/admin/zones/new'}>Nueva zona</Link>
-          </Button>
+        <div className="isoLayoutContentWrapper">
+          <div className="isoLayoutContent">
+            <Row type="flex" justify="space-between">
+              <Col span={4}>
+                <h2>Lista de zonas</h2>
+              </Col>
+              <Col span={4}>
+                <Button type="primary">
+                  <Link to={'/admin/zones/new'}>Nueva zona</Link>
+                </Button>
+              </Col>
+            </Row>
+            <br />
+      		  <div className="isoSimpleTable">
+  		        <Table
+  		          pagination={false}
+  		          columns={ columns }
+  		          dataSource={ this.props.zones }
+  		        />
+            </div>
+            <br />
+        		<Pagination defaultPageSize={itemsPerPage} 
+        			defaultCurrent={initialPage} 
+        			total={this.props.total_pages} 
+        			onChange={this.loadZonesPage} />
+          </div>
+        </div>
     	</div>
     );
   }
