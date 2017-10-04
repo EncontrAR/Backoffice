@@ -4,6 +4,7 @@ export const INDEX_ALL_ZONES = 'INDEX_ALL_ZONES'
 export const CREATE_ZONE = 'CREATE_ZONE'
 export const SHOW_ZONE = 'SHOW_ZONE'
 export const UPDATE_ZONE = 'UPDATE_ZONE'
+export const PRE_UPDATE_ZONE = 'PRE_UPDATE_ZONE'
 export const DELETE_ZONE = 'DELETE_ZONE'
 
 const zoneActions = {
@@ -37,9 +38,9 @@ const zoneActions = {
 		}
 	},
 
-	updateZone: (updateZone) => {
+	updateZone: (zoneId, updateZone) => {
 		return (dispatch, getState) => {
-	      axios.put(`/admin/zones/${updateZone.id}`, 
+	      axios.put(`/admin/zones/${zoneId}`, 
 	      	{ params: 
 	      		{ 
 	      			name: updateZone.name, 
@@ -50,6 +51,10 @@ const zoneActions = {
 	      		}
 	      	}).then((response) => dispatch({ type: UPDATE_ZONE, payload: response.data }))
 		}
+	},
+
+	preUpdateZone: (zoneData) => {
+  	return { type: PRE_UPDATE_ZONE, payload: zoneData }
 	},
 
 	deleteZone: (zoneId) => {
