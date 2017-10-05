@@ -10,7 +10,6 @@ export default function authReducer(
   state = initState.merge(getToken()),
   action
 ) {
-  console.log("Holis " + action.type);
   switch (action.type) {
     case LOGIN_REQUEST:
       //TODO Modify the state to let the user know that the request is in progress
