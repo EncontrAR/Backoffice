@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
+import Modal from '../../../../components/feedback/modal';
 import { Button, Col, Row, Input } from 'antd';
+import { Link } from 'react-router-dom';
 import zoneActions from '../../../../redux/zone/actions';
 import { connect } from 'react-redux';
 
@@ -14,17 +16,33 @@ class ZoneDetail extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-    	edition: false
+    	edition: false,
+    	deleteModal: false
     }
   }
 
-	enableEdition = () => {
-		const newEditionState = !this.state.edition
+	handleOnPress = () => {
+		if (this.state.edition) {
+			var asd = Object.assign({}, this.props.zone, {})
+			console.dir(asd)
 
-		this.setState(
-			{ 
-				edition: newEditionState
-			})
+			this.props.updateZone(asd)
+		}
+
+		this.setState({ edition: !this.state.edition })
+	}
+
+	handleDeleteOk = () => {
+		this.setState( { deleteModal: false } )
+		this.props.deleteZone(this.props.match.params.id)
+	}
+
+	handleDeleteCancel = () => {
+		this.setState( { deleteModal: false } )
+	}
+
+	handleOnDelete = () => {
+		this.setState( { deleteModal: true } )
 	}
 
   componentWillMount() {
@@ -47,9 +65,10 @@ class ZoneDetail extends Component {
 	}
 
 	handleInputChange(field, e) {
-		this.props.preUpdateZone({
-      [field]: e.target.value
-    })
+		var updatedZoneData = Object.assign({}, this.props.zone, {})
+		updatedZoneData[field] = e.target.value
+
+		this.props.preUpdateZone(updatedZoneData)
   }
   
   render() {
@@ -62,10 +81,20 @@ class ZoneDetail extends Component {
 				      <Col span={4}>
 				      	<h3 className="isoSectionTitle">{ this.state.edition ? 'Edición de zona' :  'Detalle de zona' }</h3>
 				      </Col>
-				      <Col span={4}>
+				      <Col span={6}>
 				      	 <Row type="flex" justify="space-between">
-	                <Button type="primary" size="small" onClick={this.enableEdition}>{ this.state.edition ? 'Guardar' :  'Editar' }</Button>
-	                <Button type="danger" size="small">Cancelar</Button>
+	                <Button type="primary" size="small" onClick={this.handleOnPress}>{ this.state.edition ? 'Guardar' :  'Editar' }</Button>
+	                <Button type="default" size="small">
+	                	<Link to={'/admin/zones'}>Cancelar</Link>
+	                </Button>
+	                <Button type="danger" size="small" onClick={this.handleOnDelete}>Borrar</Button>
+	                <Modal
+					          title="Borrar zona"
+					          visible={this.state.deleteModal}
+					          onOk={this.handleDeleteOk}
+					          onCancel={this.handleDeleteCancel}>
+					          <p>¿Estás seguro que querés borrar la zona?</p>
+				        	</Modal>
 	              </Row>
 				      </Col>
 				    </Row>
@@ -74,7 +103,6 @@ class ZoneDetail extends Component {
               <div className="isoBillingForm">
                 <div className="isoInputFieldset">
                   <Input
-                    name="name"
                     addonBefore="Nombre de la zona"
                     value={this.props.zone.name}
                     disabled={!this.state.edition}
@@ -86,20 +114,20 @@ class ZoneDetail extends Component {
 						      <Col span={11}>
 		                <div className="isoInputFieldset">
 		                  <Input 
-		                  	name="south_west_lat" 
 		                  	addonBefore="Latitud inferior"
 		                  	value={this.props.zone.south_west_lat}
 		                  	disabled={!this.state.edition}
+		                  	onChange={this.handleInputChange.bind(this, 'south_west_lat')}
 		                  />
 		                </div>
 						      </Col>
 						      <Col span={11} offset={2}>
 		                <div className="isoInputFieldset">
 		                  <Input 
-		                  	name="north_east_lat" 
 		                  	addonBefore="Latitud superior"
 		                  	value={this.props.zone.north_east_lat}
 		                  	disabled={!this.state.edition}
+		                  	onChange={this.handleInputChange.bind(this, 'north_east_lat')}
 		                 	/>
 		                </div>
 						      </Col>
@@ -109,20 +137,20 @@ class ZoneDetail extends Component {
 						      <Col span={11}>
 		                <div className="isoInputFieldset">
 		                  <Input 
-			                  name="south_west_long" 
 			                  addonBefore="Longitud inferior"
 			                  value={this.props.zone.south_west_long}
 			                  disabled={!this.state.edition}
+			                  onChange={this.handleInputChange.bind(this, 'south_west_long')}
 			                />
 		                </div>
 						      </Col>
 						      <Col span={11} offset={2}>
 		                <div className="isoInputFieldset">
 		                  <Input 
-		                  	name="north_east_long" 
 		                  	addonBefore="Longitud superior"
 		                  	value={this.props.zone.north_east_long}
 		                  	disabled={!this.state.edition}
+		                  	onChange={this.handleInputChange.bind(this, 'north_east_long')}
 		                  />
 		                </div>
 						      </Col>
@@ -147,7 +175,7 @@ ZoneDetail.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  const { zone } = state.Zone;
+	const { zone } = state.Zone;
   return {
     zone: zone
   };
