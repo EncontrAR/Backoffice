@@ -11,7 +11,8 @@ const initState = Immutable({
   total_count: '',
   zone: {},
   newZone: {},
-  creationSuccess: false
+  creationSuccess: false,
+  deleteSuccess: false
 });
 
 export default function campaignReducer(state = Immutable(initState), action) {
@@ -45,7 +46,8 @@ export default function campaignReducer(state = Immutable(initState), action) {
       })
     case DELETE_ZONE:
       return Immutable.merge(initState, {
-        zone: {}
+        zone: {},
+        deleteSuccess: true
       })
     default:
       return state

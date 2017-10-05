@@ -49,6 +49,10 @@ class ZoneDetail extends Component {
     this.loadZone()
   }
 
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.deleteSuccess) this.props.history.goBack()		
+  }
+
  	loadZone = () => {
 		this.props.showZone(this.props.match.params.id)
 	}
@@ -175,9 +179,10 @@ ZoneDetail.defaultProps = {
 };
 
 function mapStateToProps(state) {
-	const { zone } = state.Zone;
+	const { zone, deleteSuccess } = state.Zone;
   return {
-    zone: zone
+    zone: zone,
+    deleteSuccess: deleteSuccess
   };
 }
 

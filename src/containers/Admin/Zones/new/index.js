@@ -24,8 +24,8 @@ class NewZone extends Component {
 		this.props.preCreateZone(newZoneData)
   }
 
-  componentWillMount() {
-  	if (this.props.creationSuccess) this.props.history.goBack()
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.creationSuccess) this.props.history.goBack()		
   }
   
   render() {
