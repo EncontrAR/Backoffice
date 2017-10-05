@@ -26,7 +26,7 @@ function handleLoginResponse(dispatch, response) {
   console.log(response)
   
   // If response is ok, then LOGIN_SUCCESS action is triggered
-  if (response.code === 200) {
+  if (response.status === 200) {
     dispatch({ type: LOGIN_SUCCESS, payload: response.data })
   }
   // Else, trigger a LOGIN_ERROR action
