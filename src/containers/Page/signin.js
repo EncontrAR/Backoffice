@@ -9,9 +9,11 @@ import IntlMessages from '../../components/utility/intlMessages';
 const { login } = authActions;
 
 class SignIn extends React.Component {
+
   state = {
     redirectToReferrer: false
   };
+
   componentWillReceiveProps(nextProps) {
     if (
       this.props.isLoggedIn !== nextProps.isLoggedIn &&
@@ -20,11 +22,13 @@ class SignIn extends React.Component {
       this.setState({ redirectToReferrer: true });
     }
   }
+
   handleLogin = () => {
     const { login } = this.props;
-    login("lucas@encontrar.com", "12345678");
+    this.props.login("lucas@encontrar.com", "12345678");
     this.props.history.push('/dashboard');
   };
+
   render() {
     const from = { pathname: '/dashboard' };
     const { redirectToReferrer } = this.state;
@@ -60,11 +64,15 @@ class SignIn extends React.Component {
       </div>
     );
   }
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.Auth.get('idToken') !== null ? true : false
+  }
+};
 
 export default connect(
-  state => ({
-    isLoggedIn: state.Auth.get('idToken') !== null ? true : false
-  }),
-  { login }
+  mapStateToProps,
+  {login}
 )(SignIn);
