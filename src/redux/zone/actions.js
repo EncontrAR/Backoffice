@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 export const INDEX_ALL_ZONES = 'INDEX_ALL_ZONES'
+export const PRE_CREATE_ZONE = 'PRE_CREATE_ZONE'
 export const CREATE_ZONE = 'CREATE_ZONE'
 export const SHOW_ZONE = 'SHOW_ZONE'
 export const UPDATE_ZONE = 'UPDATE_ZONE'
+export const PRE_UPDATE_ZONE = 'PRE_UPDATE_ZONE'
 export const DELETE_ZONE = 'DELETE_ZONE'
 
 const zoneActions = {
@@ -15,18 +17,14 @@ const zoneActions = {
 		  }
 		},
 
+	preCreateZone: (zoneData) => {
+  	return { type: PRE_CREATE_ZONE, payload: zoneData }
+	},
+
 	createZone: (newZone) => {
 		return (dispatch, getState) => {
-	      axios.post('/admin/zones/', 
-	      	{ params: 
-	      		{ 
-	      			name: newZone.name, 
-	      			south_west_lat: newZone.south_west_lat,
-	      			south_west_long: newZone.south_west_long,
-	      			north_east_lat: newZone.north_east_lat,
-	      			north_east_long: newZone.north_east_long
-	      		} 
-	      	}).then((response) => dispatch({ type: CREATE_ZONE, payload: response.data }))
+	      axios.post('/admin/zones/', newZone)
+	      .then((response) => dispatch({ type: CREATE_ZONE, payload: response.data }))
 		}
 	},
 
@@ -37,18 +35,14 @@ const zoneActions = {
 		}
 	},
 
+	preUpdateZone: (zoneData) => {
+  	return { type: PRE_UPDATE_ZONE, payload: zoneData }
+	},
+
 	updateZone: (updateZone) => {
 		return (dispatch, getState) => {
-	      axios.put(`/admin/zones/${updateZone.id}`, 
-	      	{ params: 
-	      		{ 
-	      			name: updateZone.name, 
-	      			south_west_lat: updateZone.south_west_lat,
-	      			south_west_long: updateZone.south_west_long,
-	      			north_east_lat: updateZone.north_east_lat,
-	      			north_east_long: updateZone.north_east_long
-	      		}
-	      	}).then((response) => dispatch({ type: UPDATE_ZONE, payload: response.data }))
+	      axios.put(`/admin/zones/${updateZone.id}`, updateZone)
+	      .then((response) => dispatch({ type: UPDATE_ZONE, payload: updateZone }))
 		}
 	},
 

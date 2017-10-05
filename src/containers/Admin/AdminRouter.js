@@ -34,6 +34,11 @@ class AdminRouter extends React.Component {
         />
         <Route
           exact
+          path={`${url}/zones/new`}
+          component={asyncComponent(() => import("./Zones/new/index.js"))}
+        />
+        <Route
+          exact
           path={`${url}/zones/:id`}
           component={asyncComponent(() => import("./Zones/detail/index.js"))}
         />
