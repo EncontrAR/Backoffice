@@ -1,78 +1,31 @@
 import React, { Component } from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import Modal from '../../../../components/feedback/modal';
 import { Button, Col, Row, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import zoneActions from '../../../../redux/zone/actions';
 import { connect } from 'react-redux';
 
 const {
-  showZone, updateZone, preUpdateZone, deleteZone
+	preCreateZone,
+  createZone
 } = zoneActions;
 
-class ZoneDetail extends Component {
+class NewZone extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = { 
-    	edition: false,
-    	deleteModal: false
-    }
-  }
-
-	handleOnPress = () => {
-		if (this.state.edition) {
-			var asd = Object.assign({}, this.props.zone, {})
-			console.dir(asd)
-
-			this.props.updateZone(asd)
-		}
-
-		this.setState({ edition: !this.state.edition })
-	}
-
-	handleDeleteOk = () => {
-		this.setState( { deleteModal: false } )
-		this.props.deleteZone(this.props.match.params.id)
-	}
-
-	handleDeleteCancel = () => {
-		this.setState( { deleteModal: false } )
-	}
-
-	handleOnDelete = () => {
-		this.setState( { deleteModal: true } )
-	}
-
-  componentWillMount() {
-    this.loadZone()
-  }
-
-  componentWillReceiveProps(nextProps) {
-  	if (nextProps.deleteSuccess) this.props.history.goBack()		
-  }
-
- 	loadZone = () => {
-		this.props.showZone(this.props.match.params.id)
-	}
-
-	updateZone = () => {
-		this.props.updateZone(this.props.match.params.id, 
-		{
-			name: updateZone.name, 
-      south_west_lat: updateZone.south_west_lat,
-      south_west_long: updateZone.south_west_long,
-      north_east_lat: updateZone.north_east_lat,
-      north_east_long: updateZone.north_east_long
-		})
+	handleSave = () => {
+		this.props.createZone(Object.assign({}, this.props.newZone, {}))
 	}
 
 	handleInputChange(field, e) {
-		var updatedZoneData = Object.assign({}, this.props.zone, {})
-		updatedZoneData[field] = e.target.value
+		var newZoneData = Object.assign({}, this.props.newZone, {})
+		newZoneData[field] = e.target.value
 
-		this.props.preUpdateZone(updatedZoneData)
+		this.props.preCreateZone(newZoneData)
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.creationSuccess) this.props.history.goBack()		
   }
   
   render() {
@@ -83,22 +36,14 @@ class ZoneDetail extends Component {
 
 				    <Row type="flex" justify="space-between">
 				      <Col span={4}>
-				      	<h3 className="isoSectionTitle">{ this.state.edition ? 'Edición de zona' :  'Detalle de zona' }</h3>
+				      	<h3 className="isoSectionTitle">Crear zona</h3>
 				      </Col>
-				      <Col span={6}>
+				      <Col span={4}>
 				      	 <Row type="flex" justify="space-between">
-	                <Button type="primary" size="small" onClick={this.handleOnPress}>{ this.state.edition ? 'Guardar' :  'Editar' }</Button>
+	                <Button type="primary" size="small" onClick={this.handleSave}>Guardar</Button>
 	                <Button type="default" size="small">
 	                	<Link to={'/admin/zones'}>Cancelar</Link>
 	                </Button>
-	                <Button type="danger" size="small" onClick={this.handleOnDelete}>Borrar</Button>
-	                <Modal
-					          title="Borrar zona"
-					          visible={this.state.deleteModal}
-					          onOk={this.handleDeleteOk}
-					          onCancel={this.handleDeleteCancel}>
-					          <p>¿Estás seguro que querés borrar la zona?</p>
-				        	</Modal>
 	              </Row>
 				      </Col>
 				    </Row>
@@ -108,8 +53,7 @@ class ZoneDetail extends Component {
                 <div className="isoInputFieldset">
                   <Input
                     addonBefore="Nombre de la zona"
-                    value={this.props.zone.name}
-                    disabled={!this.state.edition}
+                    value={this.props.newZone.name}
                     onChange={this.handleInputChange.bind(this, 'name')}
                   />
                 </div>
@@ -119,8 +63,7 @@ class ZoneDetail extends Component {
 		                <div className="isoInputFieldset">
 		                  <Input 
 		                  	addonBefore="Latitud inferior"
-		                  	value={this.props.zone.south_west_lat}
-		                  	disabled={!this.state.edition}
+		                  	value={this.props.newZone.south_west_lat}
 		                  	onChange={this.handleInputChange.bind(this, 'south_west_lat')}
 		                  />
 		                </div>
@@ -129,8 +72,7 @@ class ZoneDetail extends Component {
 		                <div className="isoInputFieldset">
 		                  <Input 
 		                  	addonBefore="Latitud superior"
-		                  	value={this.props.zone.north_east_lat}
-		                  	disabled={!this.state.edition}
+		                  	value={this.props.newZone.north_east_lat}
 		                  	onChange={this.handleInputChange.bind(this, 'north_east_lat')}
 		                 	/>
 		                </div>
@@ -142,8 +84,7 @@ class ZoneDetail extends Component {
 		                <div className="isoInputFieldset">
 		                  <Input 
 			                  addonBefore="Longitud inferior"
-			                  value={this.props.zone.south_west_long}
-			                  disabled={!this.state.edition}
+			                  value={this.props.newZone.south_west_long}
 			                  onChange={this.handleInputChange.bind(this, 'south_west_long')}
 			                />
 		                </div>
@@ -152,8 +93,7 @@ class ZoneDetail extends Component {
 		                <div className="isoInputFieldset">
 		                  <Input 
 		                  	addonBefore="Longitud superior"
-		                  	value={this.props.zone.north_east_long}
-		                  	disabled={!this.state.edition}
+		                  	value={this.props.newZone.north_east_long}
 		                  	onChange={this.handleInputChange.bind(this, 'north_east_long')}
 		                  />
 		                </div>
@@ -168,24 +108,24 @@ class ZoneDetail extends Component {
   }
 }
 
-ZoneDetail.defaultProps = {
-  zone: {
+NewZone.defaultProps = {
+  newZone: {
   	name: 'No one',
   	south_west_lat: 0.0,
 		south_west_long: 0.0,
 		north_east_lat: 0.0,
 		north_east_long: 0.0
-  }
+  },
+  creationSuccess: false
 };
 
 function mapStateToProps(state) {
-	const { zone, deleteSuccess } = state.Zone;
+	const { newZone, creationSuccess } = state.Zone;
   return {
-    zone: zone,
-    deleteSuccess: deleteSuccess
+    newZone: newZone,
+    creationSuccess: creationSuccess
   };
 }
 
-export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone })(ZoneDetail)
-
+export default connect(mapStateToProps, { preCreateZone, createZone })(NewZone)
 
