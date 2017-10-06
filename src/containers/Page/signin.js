@@ -10,32 +10,27 @@ const { login } = authActions;
 
 class SignIn extends React.Component {
 
-  state = {
-    redirectToReferrer: false
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (
-      this.props.isLoggedIn !== nextProps.isLoggedIn &&
-      nextProps.isLoggedIn === true
-    ) {
-      this.setState({ redirectToReferrer: true });
+  constructor(props) {
+    super(props)
+    this.state = { 
+      redirectToReferrer: false
     }
   }
 
+  handleInput(field, e) {
+    this.setState({ [field]: e.target.value })
+  }
+
   handleLogin = () => {
-    const { login } = this.props;
-    this.props.login("lucas@encontrar.com", "12345678");
-    this.props.history.push('/dashboard');
+    this.props.login(this.state.email, this.state.password)
   };
 
   render() {
-    const from = { pathname: '/dashboard' };
-    const { redirectToReferrer } = this.state;
-
-    if (redirectToReferrer) {
+    const from = { pathname: '/admin' };
+    if (this.props.isLoggedIn) {
       return <Redirect to={from} />;
     }
+
     return (
       <div className="isoSignInPage">
         <div className="isoLoginContent">
@@ -47,11 +42,16 @@ class SignIn extends React.Component {
 
           <div className="isoSignInForm">
             <div className="isoInputWrapper">
-              <Input size="large" placeholder="Email" />
+              <Input 
+                size="large" placeholder="Email" 
+                onChange={this.handleInput.bind(this, 'email')} />
             </div>
 
             <div className="isoInputWrapper">
-              <Input size="large" type="password" placeholder="Contraseña" />
+              <Input 
+                size="large" type="password" 
+                placeholder="Contraseña" 
+                onChange={this.handleInput.bind(this, 'password')} />
             </div>
 
             <div className="isoInputWrapper isoLeftRightComponent">
@@ -66,13 +66,15 @@ class SignIn extends React.Component {
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.Auth.get('idToken') !== null ? true : false
-  }
-};
+SignIn.defaultProps = {
+  isLoggedIn: false
+}
 
-export default connect(
-  mapStateToProps,
-  {login}
-)(SignIn);
+function mapStateToProps(state) {
+  const { loginSuccess } = state.Auth
+  return {
+    isLoggedIn: loginSuccess
+  }
+}
+
+export default connect(mapStateToProps, { login } )(SignIn)

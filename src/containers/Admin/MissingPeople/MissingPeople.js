@@ -28,14 +28,6 @@ const columns = [{
   dataIndex: 'dni',
   key: 'dni'
 }, {
-  title: 'Foto',
-  dataIndex: 'photo',
-  render: (text, record) => (
-    <div className="isoAvatar">
-      {record ? <img alt="#" src={record} /> : ''}
-    </div>
-  )
-}, {
   title: 'Acción',
   key: 'action',
   render: (text, record) => (
@@ -82,10 +74,10 @@ class MissingPeople extends Component {
   		        />
             </div>
             <br />
-        		<Pagination defaultPageSize={itemsPerPage} 
-        			defaultCurrent={initialPage} 
-        			total={this.props.total_pages} 
-        			onChange={this.loadZonesPage} />
+        		<Pagination defaultPageSize={ itemsPerPage}  
+        			defaultCurrent={ initialPage } 
+        			total={ this.props.total_pages } 
+        			onChange={ this.loadMissingPeoplePage } />
           </div>
         </div>
     	</div>
