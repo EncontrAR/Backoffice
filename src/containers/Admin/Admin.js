@@ -11,12 +11,15 @@ import Topbar from '../Topbar/Topbar';
 import AdminRouter from './AdminRouter';
 import { siteConfig } from '../../config.js';
 import { AppLocale } from '../../index';
+import axios from 'axios'
 
 const { Content, Footer } = Layout;
 const { logout } = authAction;
 
 export class Admin extends Component {
   render() {
+    axios.defaults.headers.common['X-Auth-Token'] = localStorage.getItem('auth_token')
+
     const { url } = this.props.match;
     const { locale } = this.props;
     const currentAppLocale = AppLocale[locale];
