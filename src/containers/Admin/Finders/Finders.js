@@ -1,86 +1,109 @@
 import React, { Component } from 'react';
 import Table from '../../../components/uielements/table';
 import Pagination from '../../../components/uielements/pagination';
-import Box from '../../../components/utility/box';
-import ContentHolder from '../../../components/utility/contentHolder';
-import Button from '../../../components/uielements/button';
-import campaignActions from '../../../redux/campaign/actions';
+import { Row, Col } from 'antd'
+import finderActions from '../../../redux/finder/actions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const {
-  indexAllCampaigns
-} = campaignActions;
+  indexAllFinders
+} = finderActions;
 
 const columns = [{
-  title: 'Id',
-  dataIndex: 'id',
-  key: 'id'
+  title: 'Dispositivo',
+  key: 'device_id',
+  render: (text, record) => (
+    <span>
+      { record.device_id.substring(0,15) }
+    </span>
+  ),
 }, {
-  title: 'Título',
-  dataIndex: 'title',
-  key: 'title'
+  title: 'Sistema operativo',
+  dataIndex: 'os',
+  key: 'os'
 }, {
-  title: 'Descripción',
-  dataIndex: 'description',
-  key: 'description'
+  title: 'Email',
+  dataIndex: 'email',
+  key: 'email'
+}, {
+  title: 'Nombre',
+  dataIndex: 'name',
+  key: 'name'
+}, {
+  title: 'Apellido',
+  dataIndex: 'lastname',
+  key: 'lastname'
+}, {
+  title: 'Acción',
+  key: 'action',
+  render: (text, record) => (
+    <span>
+      <Link to={`/admin/finders/${record.id}`}>Ver detalle</Link>
+    </span>
+  ),
 }];
 
+const initialPage = 1
 const itemsPerPage = 10
 
 class Finders extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { page: 1 };
+		this.state = { page: initialPage };
 	}
 
-	loadCampaignsPage() {
-		this.props.indexAllCampaigns(this.state.page, itemsPerPage)
+	loadFindersPage() {
+		this.props.indexAllFinders(this.state.page, itemsPerPage)
 	}
 
 	componentWillMount() {
-		this.loadCampaignsPage()
+		this.loadFindersPage()
 	}
 
 	pageSelect = (e) => {
 		this.setState(e)
-		this.loadCampaignsPage()
+		this.loadFindersPage()
 	}
   
   render() {
 		return (
     	<div>
-    		<div className="isoSimpleTable">
-		        <Table
-		          pagination={false}
-		          columns={ columns }
-		          dataSource={ this.props.campaigns }
-		        />
-      		</div>
-          <Box>
-          	<ContentHolder>
-          		<Pagination defaultPageSize={itemsPerPage} 
-          			defaultCurrent={this.state.page} 
-          			total={this.props.total_pages} 
-          			onChange={this.pageSelect} />
-            </ContentHolder>
-          </Box>
-          <Button type="primary">
-            <Link to={'/dashboard/campaigns/new'}>Nueva campaña</Link>
-          </Button>
-    	</div>
+        <div className="isoLayoutContentWrapper">
+          <div className="isoLayoutContent">
+            <Row type="flex" justify="space-between">
+              <Col span={4}>
+                <h2>Lista de finders</h2>
+              </Col>
+            </Row>
+            <br />
+            <div className="isoSimpleTable">
+              <Table
+                pagination={false}
+                columns={ columns }
+                dataSource={ this.props.finders }
+              />
+            </div>
+            <br />
+            <Pagination defaultPageSize={itemsPerPage} 
+              defaultCurrent={initialPage} 
+              total={this.props.total_pages} 
+              onChange={this.loadFindersPage} />
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { campaigns, total_pages, total_count } = state.Campaign;
+  const { finders, total_pages, total_count } = state.Finder;
   return {
-    campaigns: campaigns,
+    finders: finders,
     total_pages: total_pages,
     total_count: total_count
   };
 }
 
-export default connect(mapStateToProps, { indexAllCampaigns })(Finders);
+export default connect(mapStateToProps, { indexAllFinders })(Finders);

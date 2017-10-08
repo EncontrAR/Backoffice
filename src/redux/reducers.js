@@ -14,6 +14,7 @@ import ThemeSwitcher from './themeSwitcher/reducer';
 import LanguageSwitcher from './languageSwitcher/reducer';
 import Zone from './zone/reducer'
 import MissingPerson from './missing_person/reducer'
+import Finder from './finder/reducer'
 
 export {
   Auth,
@@ -31,5 +32,6 @@ export {
   DynamicChartComponent,
   Ecommerce,
   Zone,
-  MissingPerson
+  MissingPerson,
+  Finder
 };

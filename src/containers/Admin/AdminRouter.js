@@ -57,6 +57,16 @@ class AdminRouter extends React.Component {
           path={`${url}/missingpeople/:id`}
           component={asyncComponent(() => import("./MissingPeople/detail/index.js"))}
         />
+        <Route
+          exact
+          path={`${url}/finders`}
+          component={asyncComponent(() => import("./Finders/Finders"))}
+        />
+        <Route
+          exact
+          path={`${url}/finders/:id`}
+          component={asyncComponent(() => import("./Finders/Finders"))}
+        />
       </Switch>
     );
   }
