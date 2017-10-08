@@ -1,8 +1,7 @@
 import React from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Button, Select, DatePicker } from 'antd';
-import InputBox from './input-box';
+import { Input, Button, Select, DatePicker } from 'antd';
 import IntlMessages from '../../../../components/utility/intlMessages';
 import campaignActions from '../../../../redux/campaign/actions';
 import { connect } from 'react-redux';
@@ -41,14 +40,14 @@ class NewCampaign extends React.Component {
             <div className="isoBillingSection">
               <div className="isoBillingForm">
                 <div className="isoInputFieldset">
-                  <InputBox
+                  <Input
                     label={<IntlMessages id="admin.campaign.new.title" />}
                     placeholder="Título de campaña"
                   />
                 </div>
 
                 <div className="isoInputFieldset">
-                  <InputBox
+                  <Input
                     label={<IntlMessages id="admin.campaign.new.description" />}
                     placeholder="Descripción de campaña"
                   />

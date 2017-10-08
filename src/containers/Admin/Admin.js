@@ -7,7 +7,7 @@ import { WindowResizeListener } from 'react-window-resize-listener';
 import authAction from '../../redux/auth/actions';
 import { toggleAll } from '../../redux/app/reducer';
 import Sidebar from './Sidebar/Sidebar.js';
-import Topbar from '../Topbar/Topbar';
+import Topbar from './Topbar/Topbar';
 import AdminRouter from './AdminRouter';
 import { siteConfig } from '../../config.js';
 import { AppLocale } from '../../index';
