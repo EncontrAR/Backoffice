@@ -74,9 +74,9 @@ class MissingPeople extends Component {
   		        />
             </div>
             <br />
-        		<Pagination defaultPageSize={ itemsPerPage}  
+        		<Pagination defaultPageSize={ itemsPerPage }  
         			defaultCurrent={ initialPage } 
-        			total={ this.props.total_pages } 
+        			total={ this.props.total_count }
         			onChange={ this.loadMissingPeoplePage } />
           </div>
         </div>
@@ -87,6 +87,7 @@ class MissingPeople extends Component {
 
 function mapStateToProps(state) {
   const { missing_people, total_pages, total_count } = state.MissingPerson;
+
   return {
     missing_people: missing_people,
     total_pages: total_pages,

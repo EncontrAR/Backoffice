@@ -50,7 +50,7 @@ class AdminRouter extends React.Component {
         <Route
           exact
           path={`${url}/missingpeople/new`}
-          component={asyncComponent(() => import("./MissingPeople/MissingPeople"))}
+          component={asyncComponent(() => import("./MissingPeople/new/index.js"))}
         />
         <Route
           exact

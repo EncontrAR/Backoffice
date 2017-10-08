@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const INDEX_ALL_MISSING_PEOPLE = 'INDEX_ALL_MISSING_PEOPLE'
+export const PRE_CREATE_MISSING_PERSON = 'PRE_CREATE_MISSING_PERSON'
 export const CREATE_MISSING_PERSON = 'CREATE_MISSING_PERSON'
 export const SHOW_MISSING_PERSON = 'SHOW_MISSING_PERSON'
 export const UPDATE_MISSING_PERSON = 'UPDATE_MISSING_PERSON'
@@ -14,6 +15,10 @@ const missingPersonActions = {
 		        .then((response) => dispatch({ type: INDEX_ALL_MISSING_PEOPLE, payload: response.data }))
 		  }
 		},
+
+	preCreateMissingPerson: (missingPersonData) => {
+  	return { type: PRE_CREATE_MISSING_PERSON, payload: missingPersonData }
+	},
 
 	createMissingPerson: (newMissingPerson) => {
 		return (dispatch, getState) => {

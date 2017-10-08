@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable'
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './actions'
 
 const initState = Immutable({
-  loginSuccess: false
+  loginSuccess: true // TODO: change for false
 })
 
 export default function authReducer(state = initState, action) {
