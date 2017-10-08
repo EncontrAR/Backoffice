@@ -50,6 +50,7 @@
     "react-intl": "^2.3.0",
     "react-iscroll": "^2.0.3",
     "react-ladda": "^5.0.6",
+    "react-moment": "^0.6.5",
     "react-perfect-scrollbar": "^0.2.0",
     "react-placeholder": "^1.0.5",
     "react-quill": "^1.0.0-rc.2",

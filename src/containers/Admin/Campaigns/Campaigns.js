@@ -3,6 +3,7 @@ import Table from '../../../components/uielements/table';
 import Pagination from '../../../components/uielements/pagination';
 import Button from '../../../components/uielements/button';
 import { Row, Col } from 'antd'
+import Moment from 'react-moment';
 import campaignActions from '../../../redux/campaign/actions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -42,13 +43,17 @@ const columns = [{
   key: 'missing_person',
   render: (text, record) => (
     <span>
-      {`${record.missing_person.name} ${record.missing_person.lastname}`}
+      {`${record.missing_person.name} ${record.missing_person.lastname} (${record.missing_person.dni})`}
     </span>
   )
 }, {
   title: 'Fecha de creación',
-  dataIndex: 'created_at',
-  key: 'created_at'
+  key: 'created_at',
+  render: (text, record) => (
+    <span>
+      <Moment format="DD/MM/YYYY">{record.created_at}</Moment>
+    </span>
+  )
 }, {
   title: 'Acción',
   key: 'action',
