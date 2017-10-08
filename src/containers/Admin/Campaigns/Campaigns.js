@@ -11,18 +11,52 @@ const {
   indexAllCampaigns
 } = campaignActions;
 
+const statusTranslations = {
+  actived: 'Activada',
+  deactivated: 'Desactivada',
+  expired: 'Expirada'
+}
+
 const columns = [{
   title: 'Id',
   dataIndex: 'id',
   key: 'id'
 }, {
   title: 'Título',
-  dataIndex: 'title',
-  key: 'title'
+  key: 'title',
+  render: (text, record) => (
+    <span>
+      { record.title.substring(0,20) }
+    </span>
+  )
 }, {
-  title: 'Descripción',
-  dataIndex: 'description',
-  key: 'description'
+  title: 'Estado',
+  key: 'status',
+  render: (text, record) => (
+    <span>
+      { statusTranslations[record.status] }
+    </span>
+  )
+}, {
+  title: 'Persona perdida (DNI)',
+  key: 'missing_person',
+  render: (text, record) => (
+    <span>
+      {`${record.missing_person.name} ${record.missing_person.lastname}`}
+    </span>
+  )
+}, {
+  title: 'Fecha de creación',
+  dataIndex: 'created_at',
+  key: 'created_at'
+}, {
+  title: 'Acción',
+  key: 'action',
+  render: (text, record) => (
+    <span>
+      <Link to={`/admin/campaigns/${record.id}`}>Ver detalle</Link>
+    </span>
+  ),
 }];
 
 const initialPage = 1
@@ -47,11 +81,11 @@ class Campaigns extends Component {
       <div>
         <div className="isoLayoutContentWrapper">
           <div className="isoLayoutContent">
-            <Row type="flex" justify="space-between">
+            <Row>
               <Col span={6}>
                 <h2>Lista de campañas</h2>
               </Col>
-              <Col span={5}>
+              <Col span={4} offset={14}>
                 <Button type="primary">
                   <Link to={'/admin/campaigns/new'}>Nueva campaña</Link>
                 </Button>
