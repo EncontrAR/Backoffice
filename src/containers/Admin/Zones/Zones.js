@@ -46,7 +46,7 @@ const columns = [{
 }];
 
 const initialPage = 1
-const itemsPerPage = 1
+const itemsPerPage = 10
 
 class Zones extends Component {
 
