@@ -21,12 +21,18 @@ class ZoneDetail extends Component {
     }
   }
 
+  componentWillMount() {
+    this.props.showZone(this.props.match.params.id)
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.deleteSuccess) this.props.history.goBack()		
+  }
+
 	handleOnPress = () => {
 		if (this.state.edition) {
-			var asd = Object.assign({}, this.props.zone, {})
-			console.dir(asd)
-
-			this.props.updateZone(asd)
+			var zone = Object.assign({}, this.props.zone, {})
+			this.props.updateZone(zone)
 		}
 
 		this.setState({ edition: !this.state.edition })
@@ -43,18 +49,6 @@ class ZoneDetail extends Component {
 
 	handleOnDelete = () => {
 		this.setState( { deleteModal: true } )
-	}
-
-  componentWillMount() {
-    this.loadZone()
-  }
-
-  componentWillReceiveProps(nextProps) {
-  	if (nextProps.deleteSuccess) this.props.history.goBack()		
-  }
-
- 	loadZone = () => {
-		this.props.showZone(this.props.match.params.id)
 	}
 
 	updateZone = () => {

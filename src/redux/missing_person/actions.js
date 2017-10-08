@@ -4,6 +4,7 @@ export const INDEX_ALL_MISSING_PEOPLE = 'INDEX_ALL_MISSING_PEOPLE'
 export const PRE_CREATE_MISSING_PERSON = 'PRE_CREATE_MISSING_PERSON'
 export const CREATE_MISSING_PERSON = 'CREATE_MISSING_PERSON'
 export const SHOW_MISSING_PERSON = 'SHOW_MISSING_PERSON'
+export const PRE_UPDATE_MISSING_PERSON = 'PRE_UPDATE_MISSING_PERSON'
 export const UPDATE_MISSING_PERSON = 'UPDATE_MISSING_PERSON'
 export const DELETE_MISSING_PERSON = 'DELETE_MISSING_PERSON'
 
@@ -32,6 +33,10 @@ const missingPersonActions = {
 	      axios.get(`/admin/missing_persons/${missingPersonId}`)
 	        .then((response) => dispatch({ type: SHOW_MISSING_PERSON, payload: response.data }))
 		}
+	},
+
+	preUpdateMissingPerson: (missingPersonData) => {
+  	return { type: PRE_UPDATE_MISSING_PERSON, payload: missingPersonData }
 	},
 
 	updateMissingPerson: (updateMissingPerson) => {

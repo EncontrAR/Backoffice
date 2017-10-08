@@ -2,7 +2,8 @@ import Immutable from 'seamless-immutable'
 import { 
   INDEX_ALL_MISSING_PEOPLE, CREATE_MISSING_PERSON, 
   SHOW_MISSING_PERSON, UPDATE_MISSING_PERSON,
-  DELETE_MISSING_PERSON, PRE_CREATE_MISSING_PERSON
+  DELETE_MISSING_PERSON, PRE_CREATE_MISSING_PERSON,
+  PRE_UPDATE_MISSING_PERSON
 } from './actions';
 
 const initState = Immutable({
@@ -29,20 +30,24 @@ export default function missingPersonReducer(state = Immutable(initState), actio
       })
     case CREATE_MISSING_PERSON:
       return Immutable.merge(initState, {
-        newZone: action.payload,
+        new_missing_person: action.payload,
         creationSuccess: true
       })
     case SHOW_MISSING_PERSON:
       return Immutable.merge(initState, {
-        zone: action.payload
+        missing_person: action.payload
+      })
+    case PRE_UPDATE_MISSING_PERSON:
+      return Immutable.merge(initState, {
+        missing_person: action.payload
       })
     case UPDATE_MISSING_PERSON:
       return Immutable.merge(initState, {
-        zone: action.payload
+        missing_person: state.missing_person
       })
     case DELETE_MISSING_PERSON:
       return Immutable.merge(initState, {
-        zone: {},
+        missing_person: {},
         deleteSuccess: true
       })
     default:
