@@ -65,7 +65,7 @@ class AdminRouter extends React.Component {
         <Route
           exact
           path={`${url}/finders/:id`}
-          component={asyncComponent(() => import("./Finders/Finders"))}
+          component={asyncComponent(() => import("./Finders/detail/index.js"))}
         />
       </Switch>
     );
