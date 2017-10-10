@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable'
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './actions'
 
 const initState = Immutable({
-  loginSuccess: true // TODO: change for false
+  loginSuccess: false // TODO: change for false
 })
 
 export default function authReducer(state = initState, action) {
@@ -19,7 +19,7 @@ export default function authReducer(state = initState, action) {
       console.log("Login succeded")
       localStorage.removeItem('auth_token')
       localStorage.setItem('auth_token', action.payload.auth_token) // Save the token in the local storage
-      return Immutable.merge(initState, {
+      return Immutable.merge(state, {
         loginSuccess: true
       })
     /*case actions.LOGOUT:
