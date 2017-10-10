@@ -42,14 +42,7 @@ class NewCampaign extends React.Component {
   }
 
   handleDniChange = (e) => {
-    console.log('Holis')
-    console.dir(e)
     this.setState({ searchDni: e })
-  }
-
-  handlePersonSelect = (value, option) => {
-    console.dir(value)
-    console.dir(option)
   }
 
   render() {

@@ -10,13 +10,20 @@ import {
   SEARCH_MISSING_PEOPLE
 } from './actions';
 
-console.log('Creating')
-
 const initState = Immutable({
   campaigns: '',
   total_pages: '',
   total_count: '',
-  campaign: {},
+  campaign: {
+    title: '',
+    description: '',
+    status: 'activated',
+    missing_person: {
+      name: '',
+      lastname: '',
+      photo: ''
+    }
+  },
   new_campaign: {},
   creationSuccess: false,
   deleteSuccess: false,
@@ -50,11 +57,20 @@ export default function campaignReducer(state = initState, action) {
       })
     case UPDATE_CAMPAIGN:
       return Immutable.merge(state, {
-        campaign: state.missing_person
+        campaign: action.payload
       })
     case DELETE_CAMPAIGN:
       return Immutable.merge(state, {
-        campaign: {},
+        campaign: {
+          title: '',
+          description: '',
+          status: 'activated',
+          missing_person: {
+            name: '',
+            lastname: '',
+            photo: ''
+          }
+        },
         deleteSuccess: true
       })
     case SEARCH_MISSING_PEOPLE:

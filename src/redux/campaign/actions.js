@@ -43,7 +43,7 @@ const campaignActions = {
 	updateCampaign: (updateCampaign) => {
 		return (dispatch, getState) => {
 	      axios.put(`/admin/campaigns/${updateCampaign.id}`, updateCampaign)
-	      	.then((response) => dispatch({ type: UPDATE_CAMPAIGN, payload: response.data }))
+	      	.then((response) => dispatch({ type: UPDATE_CAMPAIGN, payload: updateCampaign }))
 		}
 	},
 
