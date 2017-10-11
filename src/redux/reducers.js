@@ -15,6 +15,7 @@ import LanguageSwitcher from './languageSwitcher/reducer';
 import Zone from './zone/reducer'
 import MissingPerson from './missing_person/reducer'
 import Finder from './finder/reducer'
+import Alert from './alert/reducer'
 
 export {
   Auth,
@@ -33,5 +34,6 @@ export {
   Ecommerce,
   Zone,
   MissingPerson,
-  Finder
+  Finder,
+  Alert
 };
