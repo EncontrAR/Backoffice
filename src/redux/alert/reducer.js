@@ -22,7 +22,7 @@ const initState = Immutable({
     "status": '',
     "zone": {
         "id": '',
-        "name": ''
+        "label": ''
     }
   },         
   new_alert: {},

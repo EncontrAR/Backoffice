@@ -24,7 +24,7 @@ const columns = [{
   title: 'Zona',
   key: 'zone',
   render: (text, record) => (
-    <span>{record.zone.name}</span>
+    <span>{record.zone.label}</span>
   ),
 }, {
   title: 'Notificaciones enviadas',

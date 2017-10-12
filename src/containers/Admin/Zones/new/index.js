@@ -54,7 +54,7 @@ class NewZone extends Component {
                   <Input
                     addonBefore="Nombre de la zona"
                     value={this.props.newZone.name}
-                    onChange={this.handleInputChange.bind(this, 'name')}
+                    onChange={this.handleInputChange.bind(this, 'label')}
                   />
                 </div>
 
@@ -110,7 +110,7 @@ class NewZone extends Component {
 
 NewZone.defaultProps = {
   newZone: {
-  	name: 'No one',
+  	label: 'No one',
   	south_west_lat: 0.0,
 		south_west_long: 0.0,
 		north_east_lat: 0.0,

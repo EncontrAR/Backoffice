@@ -17,8 +17,8 @@ const columns = [{
   key: 'id'
 }, {
   title: 'Zona',
-  dataIndex: 'name',
-  key: 'name'
+  dataIndex: 'label',
+  key: 'label'
 }, {
   title: 'Latitud inferior',
   dataIndex: 'south_west_lat',
