@@ -74,7 +74,7 @@ class AdminRouter extends React.Component {
         />
         <Route
           exact
-          path={`${url}/alerts/:id`}
+          path={`${url}/alerts/:alertId`}
           component={asyncComponent(() => import("./Alerts/detail/index.js"))}
         />
       </Switch>
