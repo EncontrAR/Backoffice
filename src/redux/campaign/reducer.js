@@ -44,7 +44,7 @@ export default function campaignReducer(state = initState, action) {
       })
     case CREATE_CAMPAIGN:
       return Immutable.merge(state, {
-        new_campaign: action.payload,
+        new_campaign: {},
         creationSuccess: true
       })
     case SHOW_CAMPAIGN:

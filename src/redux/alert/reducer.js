@@ -9,22 +9,24 @@ import {
   DELETE_ALERT
 } from './actions';
 
+const emptyAlert = {
+  "id": '',
+  "title": '',
+  "notifications_sent": null,
+  "expire_date": null,
+  "created_at": '',
+  "status": '',
+  "zone": {
+      "id": '',
+      "label": ''
+  }
+}
+
 const initState = Immutable({
   alerts: [],
   total_pages: '',
   total_count: '',
-  alert: {
-    "id": '',
-    "title": '',
-    "notifications_sent": null,
-    "expire_date": null,
-    "created_at": '',
-    "status": '',
-    "zone": {
-        "id": '',
-        "label": ''
-    }
-  },         
+  alert: emptyAlert,         
   new_alert: {},
   creationSuccess: false,
   deleteSuccess: false
@@ -44,7 +46,7 @@ export default function alertReducer(state = initState, action) {
       })
     case CREATE_ALERT:
       return Immutable.merge(state, {
-        new_alert: action.payload,
+        new_alert: {},
         creationSuccess: true
       })
     case SHOW_ALERT:
@@ -61,18 +63,7 @@ export default function alertReducer(state = initState, action) {
       })
     case DELETE_ALERT:
       return Immutable.merge(state, {
-        alert: {
-          "id": '',
-          "title": '',
-          "notifications_sent": null,
-          "expire_date": null,
-          "created_at": '',
-          "status": '',
-          "zone": {
-              "id": '',
-              "name": ''
-          }
-        },
+        alert: emptyAlert,
         deleteSuccess: true
       })
     default:

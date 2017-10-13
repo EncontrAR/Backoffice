@@ -29,7 +29,7 @@ export default function campaignReducer(state = Immutable(initState), action) {
       })
     case CREATE_ZONE:
       return Immutable.merge(state, {
-        newZone: action.payload,
+        newZone: {},
         creationSuccess: true
       })
     case SHOW_ZONE:
