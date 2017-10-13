@@ -29,9 +29,7 @@ class SelectMissingPerson extends React.Component {
 
   handleSelect(field, value) {
     this.setState({ personSelected: field })
-    console.log('Hiriri')
     var newCampaign = Object.assign({}, this.props.newCampaign, {})
-    console.dir(newCampaign)
     newCampaign.missing_person_id = field.id
     this.props.preCreateCampaign(newCampaign)
   }

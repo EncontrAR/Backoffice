@@ -6,7 +6,8 @@ export const CREATE_ALERT = 'CREATE_ALERT'
 export const SHOW_ALERT = 'SHOW_ALERT'
 export const PRE_UPDATE_ALERT = 'PRE_UPDATE_ALERT'
 export const UPDATE_ALERT = 'UPDATE_ALERT'
-export const DELETE_ALERT= 'DELETE_ALERT'
+export const DELETE_ALERT = 'DELETE_ALERT'
+export const SEARCH_ZONE = 'SEARCH_ZONE'
 
 const alertActions = {
 
@@ -54,6 +55,13 @@ const alertActions = {
 		return (dispatch, getState) => {
 	      axios.delete(`/admin/alerts/${alertId}`)
 	        .then((response) => dispatch({ type: DELETE_ALERT, payload: response.data }))
+		}
+	},
+
+	searchZone: (zoneLabel) => {
+		return (dispatch, getState) => {
+	      axios.post('/admin/zones/search_by', { label: zoneLabel })
+	      	.then((response) => dispatch({ type: SEARCH_ZONE, payload: response.data }))
 		}
 	}
 };

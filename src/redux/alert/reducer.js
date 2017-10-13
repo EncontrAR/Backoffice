@@ -6,7 +6,8 @@ import {
   SHOW_ALERT,
   PRE_UPDATE_ALERT,
   UPDATE_ALERT,
-  DELETE_ALERT
+  DELETE_ALERT,
+  SEARCH_ZONE
 } from './actions';
 
 const emptyAlert = {
@@ -29,7 +30,8 @@ const initState = Immutable({
   alert: emptyAlert,         
   new_alert: {},
   creationSuccess: false,
-  deleteSuccess: false
+  deleteSuccess: false,
+  zones: []
 });
 
 export default function alertReducer(state = initState, action) {
@@ -65,6 +67,10 @@ export default function alertReducer(state = initState, action) {
       return Immutable.merge(state, {
         alert: emptyAlert,
         deleteSuccess: true
+      })
+    case SEARCH_ZONE:
+      return Immutable.merge(state, {
+        zones: action.payload
       })
     default:
       return state
