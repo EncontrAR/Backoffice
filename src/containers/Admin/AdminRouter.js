@@ -82,6 +82,11 @@ class AdminRouter extends React.Component {
           path={`${url}/conversations`}
           component={asyncComponent(() => import("./Chats/Chats"))}
         />
+        <Route
+          exact
+          path={`${url}/conversations/:conversationId/finders/:finderId`}
+          component={asyncComponent(() => import("./Chats/conversation.js"))}
+        />
       </Switch>
     );
   }

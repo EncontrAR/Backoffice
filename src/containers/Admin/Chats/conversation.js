@@ -10,6 +10,7 @@ export default class Conversation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      conversationId: props.match.params.conversationId,
       currentChatMessage: '',
       chatLogs: messages
     };
@@ -22,10 +23,9 @@ export default class Conversation extends React.Component {
   createSocket() {
     let cable = Cable.createConsumer('ws://localhost:3000/cable/');
     this.chats = cable.subscriptions.create({
-    	user_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoxLCJleHAiOjE2MzQyMTg5NTZ9.OFHlyhaqqcfW2KJNWkh3WR0n8n8uFkBB74aZkBmejTs',
+    	user_token: localStorage.getItem('auth_token'),
       channel: 'ChatChannel',
-      campaign_id: '2',
-      finder_id: '3'
+      conversation_id: this.state.conversationId
     }, {
       connected: () => {
       	console.log('Connected')

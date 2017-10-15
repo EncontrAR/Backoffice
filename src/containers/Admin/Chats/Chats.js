@@ -31,7 +31,7 @@ const columns = [{
   key: 'action',
   render: (text, record) => (
     <span>
-      <Link to={`/admin/missingpeople/${record.id}`}>Ver detalle</Link>
+      <Link to={`/admin/conversations/${record.id}/finders/${record.finder_id}`}>Abrir conversación</Link>
     </span>
   ),
 }];
