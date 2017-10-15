@@ -16,6 +16,7 @@ import Zone from './zone/reducer'
 import MissingPerson from './missing_person/reducer'
 import Finder from './finder/reducer'
 import Alert from './alert/reducer'
+import Chat from './chat/reducer'
 
 export {
   Auth,
@@ -35,5 +36,6 @@ export {
   Zone,
   MissingPerson,
   Finder,
-  Alert
+  Alert,
+  Chat
 };
