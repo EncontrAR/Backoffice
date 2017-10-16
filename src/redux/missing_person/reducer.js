@@ -6,12 +6,16 @@ import {
   PRE_UPDATE_MISSING_PERSON, CLEAR
 } from './actions';
 
+const emptyMissingPerson = {
+  gender: "male"
+}
+
 const initState = Immutable({
   missing_people: [],
   total_pages: 0,
   total_count: 0,
   missing_person: {},
-  new_missing_person: {},
+  new_missing_person: emptyMissingPerson,
   creationSuccess: false,
   deleteSuccess: false
 });
@@ -36,7 +40,7 @@ export default function missingPersonReducer(state = Immutable(initState), actio
     case CLEAR:
       return Immutable.merge(state, {
         missing_person: {},
-        new_missing_person: {},
+        new_missing_person: emptyMissingPerson,
         creationSuccess: false,
         deleteSuccess: false
       })

@@ -163,7 +163,7 @@ class MissingPersonDetail extends Component {
 	                />
 
 	                <Select 
-	                	defaultValue="male" 
+	                	value={this.props.missingPerson.gender}
 	                	style={{ 'width': '45%' }}
 	                	onChange={ this.handleGenderChange }
 	                	disabled={!this.state.edition}>
