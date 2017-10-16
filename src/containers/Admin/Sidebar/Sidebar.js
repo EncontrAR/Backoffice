@@ -142,9 +142,9 @@ class Sidebar extends Component {
             <Menu.Item key="conversations">
               <Link to={`${url}/conversations`}>
                 <span className="isoMenuHolder" style={submenuColor}>
-                  <i className="ion-ios-location" />
+                  <i className="ion-chatbubbles" />
                   <span className="nav-text">
-                    <IntlMessages id="admin.sidebar.zones" />
+                    <IntlMessages id="admin.sidebar.messages" />
                   </span>
                 </span>
               </Link>

@@ -77,10 +77,6 @@ class Campaigns extends Component {
 		this.props.indexAllCampaigns(page, itemsPerPage)
 	}
 
-	pageSelect = (e) => {
-		this.loadCampaignsPage(e)
-	}
-
   render() {
     return (
       <div>

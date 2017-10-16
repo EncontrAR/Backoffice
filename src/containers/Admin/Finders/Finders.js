@@ -49,22 +49,12 @@ const itemsPerPage = 10
 
 class Finders extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = { page: initialPage };
-	}
-
-	loadFindersPage() {
-		this.props.indexAllFinders(this.state.page, itemsPerPage)
-	}
-
 	componentWillMount() {
-		this.loadFindersPage()
-	}
+    this.loadFindersPage(initialPage)
+  }
 
-	pageSelect = (e) => {
-		this.setState(e)
-		this.loadFindersPage()
+  loadFindersPage = (page) => {
+		this.props.indexAllFinders(page, itemsPerPage)
 	}
   
   render() {
@@ -87,9 +77,9 @@ class Finders extends Component {
             </div>
             <br />
             <Pagination defaultPageSize={itemsPerPage} 
-              defaultCurrent={initialPage} 
-              total={this.props.total_pages} 
-              onChange={this.loadFindersPage} />
+              defaultCurrent={ initialPage } 
+              total={ this.props.total_count }
+              onChange={ this.loadFindersPage } />
           </div>
         </div>
       </div>

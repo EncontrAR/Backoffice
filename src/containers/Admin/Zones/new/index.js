@@ -53,7 +53,7 @@ class NewZone extends Component {
                 <div className="isoInputFieldset">
                   <Input
                     addonBefore="Nombre de la zona"
-                    value={this.props.newZone.name}
+                    value={this.props.newZone.label}
                     onChange={this.handleInputChange.bind(this, 'label')}
                   />
                 </div>
