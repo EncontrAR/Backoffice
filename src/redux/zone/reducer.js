@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable'
 import { 
   INDEX_ALL_ZONES, PRE_CREATE_ZONE, CREATE_ZONE, 
   SHOW_ZONE, PRE_UPDATE_ZONE, UPDATE_ZONE,
-  DELETE_ZONE
+  DELETE_ZONE, CLEAR
 } from './actions';
 
 const initState = Immutable({
@@ -29,8 +29,14 @@ export default function campaignReducer(state = Immutable(initState), action) {
       })
     case CREATE_ZONE:
       return Immutable.merge(state, {
-        newZone: {},
         creationSuccess: true
+      })
+    case CLEAR:
+      return Immutable.merge(state, {
+        zone: {},
+        newZone: {},
+        creationSuccess: false,
+        deleteSuccess: false
       })
     case SHOW_ZONE:
       return Immutable.merge(state, {
@@ -46,7 +52,6 @@ export default function campaignReducer(state = Immutable(initState), action) {
       })
     case DELETE_ZONE:
       return Immutable.merge(state, {
-        zone: {},
         deleteSuccess: true
       })
     default:

@@ -8,7 +8,7 @@ import zoneActions from '../../../../redux/zone/actions';
 import { connect } from 'react-redux';
 
 const {
-  showZone, updateZone, preUpdateZone, deleteZone
+  showZone, updateZone, preUpdateZone, deleteZone, clear
 } = zoneActions;
 
 class ZoneDetail extends Component {
@@ -28,6 +28,10 @@ class ZoneDetail extends Component {
   componentWillReceiveProps(nextProps) {
   	if (nextProps.deleteSuccess) this.props.history.goBack()		
   }
+
+	componentWillUnmount() {
+		this.props.clear()
+	}
 
 	handleOnPress = () => {
 		if (this.state.edition) {
@@ -180,6 +184,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone })(ZoneDetail)
+export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone, clear })(ZoneDetail)
 
 

@@ -84,7 +84,7 @@ class Zones extends Component {
             <br />
         		<Pagination defaultPageSize={itemsPerPage} 
         			defaultCurrent={initialPage} 
-        			total={this.props.total_pages} 
+        			total={this.props.total_count} 
         			onChange={this.loadZonesPage} />
           </div>
         </div>

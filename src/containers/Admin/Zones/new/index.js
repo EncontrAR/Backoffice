@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 
 const {
 	preCreateZone,
-  createZone
+  createZone,
+  clear
 } = zoneActions;
 
 class NewZone extends Component {
@@ -27,6 +28,10 @@ class NewZone extends Component {
   componentWillReceiveProps(nextProps) {
   	if (nextProps.creationSuccess) this.props.history.goBack()		
   }
+
+	componentWillUnmount() {
+		this.props.clear()
+	}
   
   render() {
 		return (
@@ -127,5 +132,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { preCreateZone, createZone })(NewZone)
+export default connect(mapStateToProps, { preCreateZone, createZone, clear })(NewZone)
 

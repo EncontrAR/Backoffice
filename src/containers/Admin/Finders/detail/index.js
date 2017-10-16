@@ -7,7 +7,7 @@ import finderActions from '../../../../redux/finder/actions';
 import { connect } from 'react-redux';
 const { TextArea } = Input;
 
-const { showFinder } = finderActions;
+const { showFinder, clear } = finderActions;
 
 class FinderDetail extends Component {
 
@@ -20,6 +20,10 @@ class FinderDetail extends Component {
 
   componentWillMount() {
     this.props.showFinder(this.props.match.params.id)
+  }
+
+  componentWillUnmount() {
+    this.props.clear()
   }
 
 	render() {
@@ -64,6 +68,13 @@ class FinderDetail extends Component {
                 />
 
                 <Input
+                  style={{ 'marginTop': '30px' }}
+                  addonBefore="DNI"
+                  value={this.props.finder.dni}
+                  disabled={this.state.editable}
+                />
+
+                <Input
                 	style={{ 'marginTop': '30px' }}
                   addonBefore="Email"
                   value={this.props.finder.email}
@@ -99,6 +110,7 @@ FinderDetail.defaultProps = {
   finder: {
   	device_id: '-',
   	os: '-',
+    dni: '-',
  		email: '-',
   	name: '-',
   	lastname: '-'
@@ -112,4 +124,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { showFinder })(FinderDetail)
+export default connect(mapStateToProps, { showFinder, clear })(FinderDetail)

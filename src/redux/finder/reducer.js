@@ -1,7 +1,8 @@
 import Immutable from 'seamless-immutable'
 import { 
   INDEX_ALL_FINDERS,
-  SHOW_FINDER
+  SHOW_FINDER,
+  CLEAR
 } from './actions';
 
 const initState = Immutable({
@@ -22,6 +23,10 @@ export default function finderReducer(state = Immutable(initState), action) {
     case SHOW_FINDER:
       return Immutable.merge(state, {
         finder: action.payload
+      })
+    case CLEAR:
+      return Immutable.merge(state, {
+        finder: {}
       })
     default:
       return state
