@@ -10,7 +10,8 @@ const {
   showCampaign,
   preUpdateCampaign,
   updateCampaign,
-  deleteCampaign
+  deleteCampaign,
+  clear
 } = campaignActions;
 
 class CampaignDetailGeneral extends React.Component {
@@ -29,6 +30,10 @@ class CampaignDetailGeneral extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.deleteSuccess) this.props.history.goBack()    
+  }
+
+  componentWillUnmount() {
+    this.props.clear()
   }
 
   handleOnPress = () => {
@@ -144,5 +149,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
-  showCampaign, preUpdateCampaign, updateCampaign, deleteCampaign
+  showCampaign, preUpdateCampaign, updateCampaign, deleteCampaign, clear
 })(CampaignDetailGeneral);

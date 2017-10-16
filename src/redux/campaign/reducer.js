@@ -7,23 +7,26 @@ import {
   PRE_UPDATE_CAMPAIGN,
   UPDATE_CAMPAIGN,
   DELETE_CAMPAIGN,
-  SEARCH_MISSING_PEOPLE
+  SEARCH_MISSING_PEOPLE,
+  CLEAR
 } from './actions';
+
+const emptyCampaign = {
+  title: '',
+  description: '',
+  status: 'activated',
+  missing_person: {
+    name: '',
+    lastname: '',
+    photo: ''
+  }
+}
 
 const initState = Immutable({
   campaigns: '',
   total_pages: '',
   total_count: '',
-  campaign: {
-    title: '',
-    description: '',
-    status: 'activated',
-    missing_person: {
-      name: '',
-      lastname: '',
-      photo: ''
-    }
-  },
+  campaign: emptyCampaign,
   new_campaign: {},
   creationSuccess: false,
   deleteSuccess: false,
@@ -44,8 +47,15 @@ export default function campaignReducer(state = initState, action) {
       })
     case CREATE_CAMPAIGN:
       return Immutable.merge(state, {
-        new_campaign: {},
         creationSuccess: true
+      })
+    case CLEAR:
+      return Immutable.merge(state, {
+        new_campaign: {},
+        campaign: emptyCampaign,
+        creationSuccess: false,
+        deleteSuccess: false,
+        available_persons: []
       })
     case SHOW_CAMPAIGN:
       return Immutable.merge(state, {
@@ -61,16 +71,6 @@ export default function campaignReducer(state = initState, action) {
       })
     case DELETE_CAMPAIGN:
       return Immutable.merge(state, {
-        campaign: {
-          title: '',
-          description: '',
-          status: 'activated',
-          missing_person: {
-            name: '',
-            lastname: '',
-            photo: ''
-          }
-        },
         deleteSuccess: true
       })
     case SEARCH_MISSING_PEOPLE:

@@ -11,7 +11,8 @@ const TextArea = Input.TextArea;
 
 const {
   preCreateCampaign,
-  createCampaign
+  createCampaign,
+  clear
 } = campaignActions;
 
 class NewCampaign extends React.Component {
@@ -25,6 +26,10 @@ class NewCampaign extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.creationSuccess) this.props.history.goBack()    
+  }
+
+  componentWillUnmount() {
+    this.props.clear()
   }
 
   handleSave = () => {
@@ -115,5 +120,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
-  preCreateCampaign, createCampaign 
+  preCreateCampaign, createCampaign, clear
 })(NewCampaign);

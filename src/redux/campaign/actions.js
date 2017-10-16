@@ -3,6 +3,7 @@ import axios from 'axios'
 export const INDEX_ALL_CAMPAIGNS = 'INDEX_ALL_CAMPAIGNS'
 export const PRE_CREATE_CAMPAIGN = 'PRE_CREATE_CAMPAIGN'
 export const CREATE_CAMPAIGN = 'CREATE_CAMPAIGN'
+export const CLEAR = 'CLEAR'
 export const SHOW_CAMPAIGN = 'SHOW_CAMPAIGN'
 export const PRE_UPDATE_CAMPAIGN = 'PRE_UPDATE_CAMPAIGN'
 export const UPDATE_CAMPAIGN = 'UPDATE_CAMPAIGN'
@@ -27,6 +28,10 @@ const campaignActions = {
 	      axios.post('/admin/campaigns/', newCampaign)
 	      	.then((response) => dispatch({ type: CREATE_CAMPAIGN, payload: response.data }))
 		}
+	},
+
+	clear: () => {
+  	return { type: CLEAR, payload: null }
 	},
 
 	showCampaign: (campaignId) => {
