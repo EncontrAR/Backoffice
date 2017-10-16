@@ -40,7 +40,7 @@ export default class Conversation extends React.Component {
   }
 
   createSocket() {
-    let cable = Cable.createConsumer('ws://localhost:3000/cable/');
+    let cable = Cable.createConsumer('ws://encontrar-stage.herokuapp.com/cable/');
     this.cable = cable
     this.chats = cable.subscriptions.create({
     	user_token: localStorage.getItem('auth_token'),
