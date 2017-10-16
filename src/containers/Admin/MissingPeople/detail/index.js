@@ -12,7 +12,8 @@ const {
 	showMissingPerson,
   preUpdateMissingPerson,
   updateMissingPerson,
-  deleteMissingPerson
+  deleteMissingPerson,
+  clear
 } = missingPersonActions;
 
 class MissingPersonDetail extends Component {
@@ -33,6 +34,10 @@ class MissingPersonDetail extends Component {
   componentWillReceiveProps(nextProps) {
   	if (nextProps.deleteSuccess) this.props.history.goBack()		
   }
+
+	componentWillUnmount() {
+		this.props.clear()
+	}
 
 	handleOnPress = () => {
 		if (this.state.edition) {
@@ -221,4 +226,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, { showMissingPerson,
   preUpdateMissingPerson,
   updateMissingPerson,
-  deleteMissingPerson })(MissingPersonDetail)
+  deleteMissingPerson,
+  clear })(MissingPersonDetail)

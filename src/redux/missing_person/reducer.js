@@ -3,7 +3,7 @@ import {
   INDEX_ALL_MISSING_PEOPLE, CREATE_MISSING_PERSON, 
   SHOW_MISSING_PERSON, UPDATE_MISSING_PERSON,
   DELETE_MISSING_PERSON, PRE_CREATE_MISSING_PERSON,
-  PRE_UPDATE_MISSING_PERSON
+  PRE_UPDATE_MISSING_PERSON, CLEAR
 } from './actions';
 
 const initState = Immutable({
@@ -33,6 +33,13 @@ export default function missingPersonReducer(state = Immutable(initState), actio
         new_missing_person: action.payload,
         creationSuccess: true
       })
+    case CLEAR:
+      return Immutable.merge(state, {
+        missing_person: {},
+        new_missing_person: {},
+        creationSuccess: false,
+        deleteSuccess: false
+      })
     case SHOW_MISSING_PERSON:
       return Immutable.merge(state, {
         missing_person: action.payload
@@ -47,7 +54,6 @@ export default function missingPersonReducer(state = Immutable(initState), actio
       })
     case DELETE_MISSING_PERSON:
       return Immutable.merge(state, {
-        missing_person: {},
         deleteSuccess: true
       })
     default:

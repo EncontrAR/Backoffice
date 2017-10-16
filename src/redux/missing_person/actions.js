@@ -3,6 +3,7 @@ import axios from 'axios'
 export const INDEX_ALL_MISSING_PEOPLE = 'INDEX_ALL_MISSING_PEOPLE'
 export const PRE_CREATE_MISSING_PERSON = 'PRE_CREATE_MISSING_PERSON'
 export const CREATE_MISSING_PERSON = 'CREATE_MISSING_PERSON'
+export const CLEAR = 'CLEAR'
 export const SHOW_MISSING_PERSON = 'SHOW_MISSING_PERSON'
 export const PRE_UPDATE_MISSING_PERSON = 'PRE_UPDATE_MISSING_PERSON'
 export const UPDATE_MISSING_PERSON = 'UPDATE_MISSING_PERSON'
@@ -26,6 +27,10 @@ const missingPersonActions = {
 	      axios.post('/admin/missing_persons/', newMissingPerson)
 	      	.then((response) => dispatch({ type: CREATE_MISSING_PERSON, payload: response.data }))
 		}
+	},
+
+	clear: () => {
+  	return { type: CLEAR, payload: null }
 	},
 
 	showMissingPerson: (missingPersonId) => {

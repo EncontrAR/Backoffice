@@ -9,7 +9,8 @@ const { Option } = Select;
 
 const {
 	preCreateMissingPerson,
-  createMissingPerson
+  createMissingPerson,
+  clear
 } = missingPersonActions;
 
 class NewMissingPerson extends Component {
@@ -17,6 +18,10 @@ class NewMissingPerson extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { photo: '' }
+	}
+
+	componentWillUnmount() {
+		this.props.clear()
 	}
 
 	handleSave = () => {
@@ -79,7 +84,7 @@ class NewMissingPerson extends Component {
 				      	 <Row type="flex" justify="space-between">
 	                <Button type="primary" size="small" onClick={this.handleSave}>Guardar</Button>
 	                <Button type="default" size="small">
-	                	<Link to={'/admin/zones'}>Cancelar</Link>
+	                	<Link to={'/admin/missingpeople'}>Cancelar</Link>
 	                </Button>
 	              </Row>
 				      </Col>
@@ -174,4 +179,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { preCreateMissingPerson, createMissingPerson })(NewMissingPerson)
+export default connect(mapStateToProps, { preCreateMissingPerson, createMissingPerson, clear })(NewMissingPerson)
