@@ -12,7 +12,7 @@ const RestrictedRoute = ({ component: Component, ...rest, isLoggedIn }) =>
   <Route
     {...rest}
     render={props =>
-      isLoggedIn
+      isLoggedIn || localStorage.getItem('auth_token') !== null
         ? <Component {...props} />
         : <Redirect
             to={{
