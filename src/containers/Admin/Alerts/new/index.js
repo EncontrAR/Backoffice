@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 const {
   preCreateAlert,
   createAlert,
-  searchZone
+  searchZone,
+  clear
 } = alertActions;
 
 class NewAlert extends React.Component {
@@ -30,6 +31,10 @@ class NewAlert extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.creationSuccess) this.props.history.goBack()    
+  }
+
+  componentWillUnmount() {
+    this.props.clear()
   }
 
 	handleSave = () => {
@@ -189,5 +194,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { 
-  preCreateAlert, createAlert, searchZone
+  preCreateAlert, createAlert, searchZone, clear
 })(NewAlert);
