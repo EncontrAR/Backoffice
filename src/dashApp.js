@@ -8,12 +8,11 @@ import '../src/style/styles.less'
 axios.defaults.baseURL = 'https://encontrar-stage.herokuapp.com/v1'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.interceptors.response.use(function (response) {
-    if (response.status === 401) {
-    	localStorage.setItem('auth_token', null)
-    }
     return response;
   }, function (error) {
-    localStorage.setItem('auth_token', null)
+    if (error.response.status === 401) {
+      localStorage.setItem('auth_token', null)
+    }
     return Promise.reject(error);
   });
 
