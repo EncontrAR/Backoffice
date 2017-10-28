@@ -16,6 +16,9 @@ export default class Reports extends React.Component {
 	  		<Box>
 			  	<Tabs defaultActiveKey="1">
 				    <TabPane tab="Campañas activas" key="1"><ActiveCampaigns /></TabPane>
+				    <TabPane tab="Campañas exitosas" key="2"><SuccessCampaigns /></TabPane>
+						<TabPane tab="Campañas expiradas" key="3"><ExpiredCampaigns /></TabPane>
+						<TabPane tab="Campañas canceladas" key="4"><CanceledCampaigns /></TabPane>
 				  </Tabs>
 	  		</Box>
 			</LayoutWrapper>

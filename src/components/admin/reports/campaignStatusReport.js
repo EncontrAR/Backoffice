@@ -14,8 +14,12 @@ const itemsPerPage = 10
 
 const columns = [{
   title: 'Id',
-  dataIndex: 'id',
-  key: 'id'
+  key: 'id',
+  render: (text, record) => (
+    <span>
+      { record.campaign.id }
+    </span>
+  )
 }, {
   title: 'Título',
   key: 'title',
@@ -33,11 +37,11 @@ const columns = [{
     </span>
   )
 }, {
-  title: 'Fecha de expiración',
-  key: 'created_at',
+  title: 'Fecha de cambio de estado',
+  key: 'change_date',
   render: (text, record) => (
     <span>
-      <Moment format="DD/MM/YYYY">{record.campaign.expire_date}</Moment>
+      <Moment format="DD/MM/YYYY">{record.created_at}</Moment>
     </span>
   )
 }, {
@@ -59,7 +63,7 @@ export default class extends React.Component {
       to: '2017-12-31',
       set_from: '2017-01-01',
       set_to: '2017-12-31',
-      page: 1
+      page: initialPage
     }
   }
 

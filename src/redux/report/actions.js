@@ -27,6 +27,8 @@ const reportActions = {
 			case 'success':
 				action = SUCCESS_CAMPAIGNS
 				break
+			default:
+				break
 		}
 
 		const body = {

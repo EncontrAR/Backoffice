@@ -3,7 +3,7 @@ import StatusReport from './../../../components/admin/reports/campaignStatusRepo
 import reportActions from '../../../redux/report/actions';
 import { connect } from 'react-redux';
 
-const title = 'Lista de campañas exitosas'
+const title = 'Lista de campañas activas'
 
 const { indexStatusCampaigns } = reportActions;
 
@@ -34,7 +34,6 @@ ActiveCampaigns.defaultProps = {
 
 function mapStateToProps(state) {
   const { actived_campaigns } = state.Report;
-  console.dir(actived_campaigns.page)
   return {
     campaigns: actived_campaigns.page,
     total_pages: actived_campaigns.total_pages,
