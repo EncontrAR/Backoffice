@@ -17,6 +17,7 @@ import MissingPerson from './missing_person/reducer'
 import Finder from './finder/reducer'
 import Alert from './alert/reducer'
 import Chat from './chat/reducer'
+import Report from './report/reducer'
 
 export {
   Auth,
@@ -37,5 +38,6 @@ export {
   MissingPerson,
   Finder,
   Alert,
-  Chat
+  Chat,
+  Report
 };

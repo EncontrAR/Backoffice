@@ -149,6 +149,16 @@ class Sidebar extends Component {
                 </span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="reports">
+              <Link to={`${url}/reports`}>
+                <span className="isoMenuHolder" style={submenuColor}>
+                  <i className="ion-document-text" />
+                  <span className="nav-text">
+                    <IntlMessages id="admin.sidebar.reports" />
+                  </span>
+                </span>
+              </Link>
+            </Menu.Item>
           </Menu>
         </Scrollbars>
       </Sider>
