@@ -1,13 +1,16 @@
 import React from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Input, Button, Col, Row } from 'antd';
+import { Input, Button, Col, Row, DatePicker } from 'antd';
+import moment from 'moment-timezone';
 import SelectMP from './selectMissingPerson';
 import { Link } from 'react-router-dom';
 import campaignActions from '../../../../redux/campaign/actions';
 import { connect } from 'react-redux';
 
 const TextArea = Input.TextArea;
+const DATE_FORMAT = 'YYYY-MM-DD';
+const TIMEZONE = 'America/Argentina/Buenos_Aires';
 
 const {
   preCreateCampaign,
@@ -50,6 +53,14 @@ class NewCampaign extends React.Component {
     this.setState({ searchDni: e })
   }
 
+  handleExpireDateChange = (e, d) => {
+    var date = moment(d.format())
+    this.handlePreCreateChange(
+      'expire_date', 
+      new Date(date.tz(TIMEZONE).format())
+    )
+  }
+
   render() {
 
     var styleColLeft = {
@@ -89,6 +100,12 @@ class NewCampaign extends React.Component {
                   value={this.props.newCampaign.description}
                   onChange={this.handleInputChange.bind(this, 'description')}
                 />
+
+                <h4 style={{ marginTop: '15px' }}>Fecha de expiración</h4>
+                <DatePicker 
+                  onChange={this.handleExpireDateChange.bind(this, 'expire_date')}
+                  value={moment(this.props.newCampaign.expire_date, DATE_FORMAT)} 
+                  format={DATE_FORMAT} />
 
                 <SelectMP />
 

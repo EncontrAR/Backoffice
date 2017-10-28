@@ -1,10 +1,15 @@
 import React from 'react';
 import Modal from '../../../../components/feedback/modal';
-import { Input, Button, Col, Row } from 'antd';
+import { Input, Button, Col, Row, DatePicker, Select } from 'antd';
+import moment from 'moment-timezone';
 import campaignActions from '../../../../redux/campaign/actions';
 import { connect } from 'react-redux';
 
+const { Option } = Select;
 const TextArea = Input.TextArea;
+
+const DATE_FORMAT = 'YYYY-MM-DD';
+const TIMEZONE = 'America/Argentina/Buenos_Aires';
 
 const {
   showCampaign,
@@ -26,6 +31,7 @@ class CampaignDetailGeneral extends React.Component {
 
   componentWillMount() {
     this.props.showCampaign(this.props.campaignId)
+    console.dir(this.props.campaign)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,6 +69,19 @@ class CampaignDetailGeneral extends React.Component {
   handleInputChange(field, e) {
     var campaign = Object.assign({}, this.props.campaign, {})
     campaign[field] = e.target.value
+    this.props.preUpdateCampaign(campaign)
+  }
+
+  handleExpireDateChange = (e, d) => {
+    var date = moment(d.format())
+    var campaign = Object.assign({}, this.props.campaign, {})
+    campaign.expire_date = new Date(date.tz(TIMEZONE).format())
+    this.props.preUpdateCampaign(campaign)
+  }
+
+  handleStatusChange = (value) => {
+    var campaign = Object.assign({}, this.props.campaign, {})
+    campaign.status = value
     this.props.preUpdateCampaign(campaign)
   }
 
@@ -112,6 +131,26 @@ class CampaignDetailGeneral extends React.Component {
               disabled={!this.state.edition}
             />
 
+            <h4 style={{ marginTop: '15px' }}>Fecha de expiración</h4>
+            <DatePicker 
+              onChange={this.handleExpireDateChange.bind(this, 'expire_date')}
+              value={moment(this.props.campaign.expire_date, DATE_FORMAT)} 
+              format={DATE_FORMAT}
+              disabled={!this.state.edition} />
+
+            <h4 style={{ marginTop: '15px' }}>Estado</h4><br/>
+            <Select 
+              value={this.props.campaign.status}
+              onChange={ this.handleStatusChange }
+              disabled={!this.state.edition}>
+
+              <Option value="actived">Activada</Option>
+              <Option value="deactivated">Desactivada</Option>
+              <Option value="expired">Expirada</Option>
+              <Option value="success">Exitosa</Option>
+
+            </Select>
+
             <h4 style={{ marginTop: '15px' }}>Persona perdida</h4><br/>
             <Row type="flex" justify="start" style={{ marginBottom: '15px', alignItems: 'center' }}>
                 <img 
@@ -142,6 +181,7 @@ CampaignDetailGeneral.defaultProps = {
 
 function mapStateToProps(state) {
   const { campaign, deleteSuccess } = state.Campaign;
+  console.dir(moment(campaign.expire_date, DATE_FORMAT))
   return {
     campaign: campaign,
     deleteSuccess: deleteSuccess

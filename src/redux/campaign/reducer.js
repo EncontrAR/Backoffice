@@ -22,12 +22,16 @@ const emptyCampaign = {
   }
 }
 
+const emptyNewCampaign = {
+  expire_date: new Date('2018-01-15')
+}
+
 const initState = Immutable({
   campaigns: '',
   total_pages: '',
   total_count: '',
   campaign: emptyCampaign,
-  new_campaign: {},
+  new_campaign: emptyNewCampaign,
   creationSuccess: false,
   deleteSuccess: false,
   available_persons: []
@@ -51,7 +55,7 @@ export default function campaignReducer(state = initState, action) {
       })
     case CLEAR:
       return Immutable.merge(state, {
-        new_campaign: {},
+        new_campaign: emptyNewCampaign,
         campaign: emptyCampaign,
         creationSuccess: false,
         deleteSuccess: false,

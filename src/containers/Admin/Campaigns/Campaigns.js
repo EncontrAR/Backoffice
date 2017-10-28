@@ -15,7 +15,8 @@ const {
 const statusTranslations = {
   actived: 'Activada',
   deactivated: 'Desactivada',
-  expired: 'Expirada'
+  expired: 'Expirada',
+  success: 'Exitosa'
 }
 
 const columns = [{
