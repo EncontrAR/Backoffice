@@ -10,14 +10,13 @@ const { indexStatusCampaigns } = reportActions;
 export class ActiveCampaigns extends React.Component {
 
 	loadPage = (from, to, page, limit) => {
-		console.log('loadPage ' + page)
-		this.props.indexStatusCampaigns('actived', '2017-01-01', '2017-12-31', page, limit)
+		this.props.indexStatusCampaigns('actived', from, to, page, limit)
 	}
 
 	render() {
 		return (
 			<StatusReport 
-				title={ this.title }
+				title={ title }
 				campaigns={ this.props.campaigns }
 				total_pages= { this.props.total_pages }
 				total_count= { this.props.total_count }

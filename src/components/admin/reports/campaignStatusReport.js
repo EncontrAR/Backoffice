@@ -2,9 +2,12 @@ import React from 'react';
 import Table from '../../uielements/table';
 import Pagination from '../../uielements/pagination';
 import Button from '../../uielements/button';
-import { Row, Col } from 'antd'
+import { Row, Col, DatePicker } from 'antd'
 import Moment from 'react-moment';
+import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
+
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 const initialPage = 1
 const itemsPerPage = 10
@@ -49,25 +52,62 @@ const columns = [{
 
 export default class extends React.Component {
 
-  componentWillMount() {
-    this.props.loadPage('2017-01-01', '2017-12-31', initialPage, itemsPerPage)
+  constructor(props) {
+    super(props)
+    this.state = {
+      from: '2017-01-01',
+      to: '2017-12-31',
+      set_from: '2017-01-01',
+      set_to: '2017-12-31',
+      page: 1
+    }
   }
 
-	handlePageChange = () => {
-		//this.props.loadPage(5)
+  componentWillMount() {
+    this.loadPage()
+  }
+
+	handlePageChange(page) {
+    this.setState({ page: page }, () => {
+      this.loadPage()
+    })
 	}
 
-	handleFilter = () => {
-		//this.props.handleFilter(1,2)
-	}
+  handleSearch() {
+    var component = this
+
+    this.setState({ page: this.state.page, set_from: this.state.from, set_to: this.state.to }, () => {
+      component.loadPage()
+    })
+  }
+
+  handleDateChange(field, d) {
+    this.setState({ [field]: new Date(d.format()) })
+  }
+
+  loadPage() {
+    this.props.loadPage(this.state.set_from, this.state.set_to, this.state.page, itemsPerPage)
+  }
 
 	render() {
 		return (
       <div>
+        <h2>{ this.props.title }</h2>
         <Row>
-          <Col span={6}>
-            <h2>{ this.props.title }</h2>
-            <Button onClick={this.handleFilter}>Hola</Button>
+          <Col type="flex" justify="space-between" span={18}>
+            
+            <DatePicker 
+              onChange={ this.handleDateChange.bind(this, 'from') }
+              value={ moment(this.state.from, DATE_FORMAT) } 
+              format={ DATE_FORMAT } />
+
+            <DatePicker 
+              onChange={ this.handleDateChange.bind(this, 'to') }
+              value={ moment(this.state.to, DATE_FORMAT) } 
+              format={ DATE_FORMAT } />
+
+
+            <Button onClick={ this.handleSearch.bind(this) }>Buscar</Button>
           </Col>
         </Row>
         <br />
@@ -80,9 +120,9 @@ export default class extends React.Component {
         </div>
         <br />
         <Pagination defaultPageSize={ itemsPerPage }  
-          defaultCurrent={ initialPage } 
+          defaultCurrent={ this.state.page } 
           total={ this.props.total_count }
-          onChange={ this.props.handlePageChange } />
+          onChange={ this.handlePageChange.bind(this) } />
       </div>
 		)
 	}
