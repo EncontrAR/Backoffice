@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 
 const {
 	preCreateZone,
-  createZone
+  createZone,
+  clear
 } = zoneActions;
 
 class NewZone extends Component {
@@ -27,6 +28,10 @@ class NewZone extends Component {
   componentWillReceiveProps(nextProps) {
   	if (nextProps.creationSuccess) this.props.history.goBack()		
   }
+
+	componentWillUnmount() {
+		this.props.clear()
+	}
   
   render() {
 		return (
@@ -53,8 +58,8 @@ class NewZone extends Component {
                 <div className="isoInputFieldset">
                   <Input
                     addonBefore="Nombre de la zona"
-                    value={this.props.newZone.name}
-                    onChange={this.handleInputChange.bind(this, 'name')}
+                    value={this.props.newZone.label}
+                    onChange={this.handleInputChange.bind(this, 'label')}
                   />
                 </div>
 
@@ -110,7 +115,7 @@ class NewZone extends Component {
 
 NewZone.defaultProps = {
   newZone: {
-  	name: 'No one',
+  	label: 'No one',
   	south_west_lat: 0.0,
 		south_west_long: 0.0,
 		north_east_lat: 0.0,
@@ -127,5 +132,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { preCreateZone, createZone })(NewZone)
+export default connect(mapStateToProps, { preCreateZone, createZone, clear })(NewZone)
 

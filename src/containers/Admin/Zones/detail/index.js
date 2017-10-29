@@ -8,7 +8,7 @@ import zoneActions from '../../../../redux/zone/actions';
 import { connect } from 'react-redux';
 
 const {
-  showZone, updateZone, preUpdateZone, deleteZone
+  showZone, updateZone, preUpdateZone, deleteZone, clear
 } = zoneActions;
 
 class ZoneDetail extends Component {
@@ -21,12 +21,22 @@ class ZoneDetail extends Component {
     }
   }
 
+  componentWillMount() {
+    this.props.showZone(this.props.match.params.id)
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.deleteSuccess) this.props.history.goBack()		
+  }
+
+	componentWillUnmount() {
+		this.props.clear()
+	}
+
 	handleOnPress = () => {
 		if (this.state.edition) {
-			var asd = Object.assign({}, this.props.zone, {})
-			console.dir(asd)
-
-			this.props.updateZone(asd)
+			var zone = Object.assign({}, this.props.zone, {})
+			this.props.updateZone(zone)
 		}
 
 		this.setState({ edition: !this.state.edition })
@@ -45,22 +55,10 @@ class ZoneDetail extends Component {
 		this.setState( { deleteModal: true } )
 	}
 
-  componentWillMount() {
-    this.loadZone()
-  }
-
-  componentWillReceiveProps(nextProps) {
-  	if (nextProps.deleteSuccess) this.props.history.goBack()		
-  }
-
- 	loadZone = () => {
-		this.props.showZone(this.props.match.params.id)
-	}
-
 	updateZone = () => {
 		this.props.updateZone(this.props.match.params.id, 
 		{
-			name: updateZone.name, 
+			label: updateZone.label, 
       south_west_lat: updateZone.south_west_lat,
       south_west_long: updateZone.south_west_long,
       north_east_lat: updateZone.north_east_lat,
@@ -108,7 +106,7 @@ class ZoneDetail extends Component {
                 <div className="isoInputFieldset">
                   <Input
                     addonBefore="Nombre de la zona"
-                    value={this.props.zone.name}
+                    value={this.props.zone.label}
                     disabled={!this.state.edition}
                     onChange={this.handleInputChange.bind(this, 'name')}
                   />
@@ -170,7 +168,7 @@ class ZoneDetail extends Component {
 
 ZoneDetail.defaultProps = {
   zone: {
-  	name: 'No one',
+  	label: 'No one',
   	south_west_lat: 0.0,
 		south_west_long: 0.0,
 		north_east_lat: 0.0,
@@ -186,6 +184,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone })(ZoneDetail)
+export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone, clear })(ZoneDetail)
 
 

@@ -3,6 +3,7 @@ import axios from 'axios'
 export const INDEX_ALL_ZONES = 'INDEX_ALL_ZONES'
 export const PRE_CREATE_ZONE = 'PRE_CREATE_ZONE'
 export const CREATE_ZONE = 'CREATE_ZONE'
+export const CLEAR = 'CLEAR'
 export const SHOW_ZONE = 'SHOW_ZONE'
 export const UPDATE_ZONE = 'UPDATE_ZONE'
 export const PRE_UPDATE_ZONE = 'PRE_UPDATE_ZONE'
@@ -26,6 +27,10 @@ const zoneActions = {
 	      axios.post('/admin/zones/', newZone)
 	      .then((response) => dispatch({ type: CREATE_ZONE, payload: response.data }))
 		}
+	},
+
+	clear: () => {
+  	return { type: CLEAR, payload: null }
 	},
 
 	showZone: (zoneId) => {

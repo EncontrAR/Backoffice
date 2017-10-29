@@ -17,8 +17,8 @@ const columns = [{
   key: 'id'
 }, {
   title: 'Zona',
-  dataIndex: 'name',
-  key: 'name'
+  dataIndex: 'label',
+  key: 'label'
 }, {
   title: 'Latitud inferior',
   dataIndex: 'south_west_lat',
@@ -46,7 +46,7 @@ const columns = [{
 }];
 
 const initialPage = 1
-const itemsPerPage = 1
+const itemsPerPage = 10
 
 class Zones extends Component {
 
@@ -84,7 +84,7 @@ class Zones extends Component {
             <br />
         		<Pagination defaultPageSize={itemsPerPage} 
         			defaultCurrent={initialPage} 
-        			total={this.props.total_pages} 
+        			total={this.props.total_count} 
         			onChange={this.loadZonesPage} />
           </div>
         </div>

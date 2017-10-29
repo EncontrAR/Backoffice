@@ -19,13 +19,13 @@ class AdminRouter extends React.Component {
         />
         <Route
           exact
-          path={`${url}/finders`}
-          component={asyncComponent(() => import("./Finders/Finders"))}
+          path={`${url}/campaigns/:id`}
+          component={asyncComponent(() => import("./Campaigns/detail/index.js"))}
         />
         <Route
           exact
-          path={`${url}/users`}
-          component={asyncComponent(() => import("./Users/Users"))}
+          path={`${url}/finders`}
+          component={asyncComponent(() => import("./Finders/Finders"))}
         />
         <Route
           exact
@@ -41,6 +41,56 @@ class AdminRouter extends React.Component {
           exact
           path={`${url}/zones/:id`}
           component={asyncComponent(() => import("./Zones/detail/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/missingpeople`}
+          component={asyncComponent(() => import("./MissingPeople/MissingPeople"))}
+        />
+        <Route
+          exact
+          path={`${url}/missingpeople/new`}
+          component={asyncComponent(() => import("./MissingPeople/new/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/missingpeople/:id`}
+          component={asyncComponent(() => import("./MissingPeople/detail/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/finders`}
+          component={asyncComponent(() => import("./Finders/Finders"))}
+        />
+        <Route
+          exact
+          path={`${url}/finders/:id`}
+          component={asyncComponent(() => import("./Finders/detail/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/campaigns/:campaignId/alerts/new`}
+          component={asyncComponent(() => import("./Alerts/new/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/alerts/:alertId`}
+          component={asyncComponent(() => import("./Alerts/detail/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/conversations`}
+          component={asyncComponent(() => import("./Chats/Chats"))}
+        />
+        <Route
+          exact
+          path={`${url}/conversations/:conversationId/finders/:finderId`}
+          component={asyncComponent(() => import("./Chats/conversation.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/reports`}
+          component={asyncComponent(() => import("./Reports/Reports.js"))}
         />
       </Switch>
     );

@@ -13,6 +13,11 @@ import Ecommerce from './ecommerce/reducer';
 import ThemeSwitcher from './themeSwitcher/reducer';
 import LanguageSwitcher from './languageSwitcher/reducer';
 import Zone from './zone/reducer'
+import MissingPerson from './missing_person/reducer'
+import Finder from './finder/reducer'
+import Alert from './alert/reducer'
+import Chat from './chat/reducer'
+import Report from './report/reducer'
 
 export {
   Auth,
@@ -29,5 +34,10 @@ export {
   Cards,
   DynamicChartComponent,
   Ecommerce,
-  Zone
+  Zone,
+  MissingPerson,
+  Finder,
+  Alert,
+  Chat,
+  Report
 };

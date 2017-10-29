@@ -99,16 +99,6 @@ class Sidebar extends Component {
             selectedKeys={[app.current]}
             onOpenChange={this.onOpenChange}
             className="isoDashboardMenu">
-            <Menu.Item key="users">
-              <Link to={`${url}/users`}>
-                <span className="isoMenuHolder" style={submenuColor}>
-                  <i className="ion-android-person" />
-                  <span className="nav-text">
-                    <IntlMessages id="admin.sidebar.users" />
-                  </span>
-                </span>
-              </Link>
-            </Menu.Item>
             <Menu.Item key="campaigns">
               <Link to={`${url}/campaigns`}>
                 <span className="isoMenuHolder" style={submenuColor}>
@@ -145,6 +135,26 @@ class Sidebar extends Component {
                   <i className="ion-ios-location" />
                   <span className="nav-text">
                     <IntlMessages id="admin.sidebar.zones" />
+                  </span>
+                </span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="conversations">
+              <Link to={`${url}/conversations`}>
+                <span className="isoMenuHolder" style={submenuColor}>
+                  <i className="ion-chatbubbles" />
+                  <span className="nav-text">
+                    <IntlMessages id="admin.sidebar.messages" />
+                  </span>
+                </span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="reports">
+              <Link to={`${url}/reports`}>
+                <span className="isoMenuHolder" style={submenuColor}>
+                  <i className="ion-document-text" />
+                  <span className="nav-text">
+                    <IntlMessages id="admin.sidebar.reports" />
                   </span>
                 </span>
               </Link>

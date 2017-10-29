@@ -2,9 +2,9 @@ export default {
   apiUrl: 'http://yoursite.com/api/'
 };
 const siteConfig = {
-  siteName: 'ISOMORPHIC',
+  siteName: 'EncontrAR',
   siteIcon: 'ion-flash',
-  footerText: 'Isomorphic ©2017 Created by RedQ, Inc'
+  footerText: 'EncontrAR ©2017'
 };
 
 const themeConfig = {
