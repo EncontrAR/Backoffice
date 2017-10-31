@@ -80,10 +80,11 @@ class Chats extends Component {
 }
 
 function mapStateToProps(state) {
-  const { conversations } = state.Chat;
-
+  const { conversations, total_pages, total_count } = state.Chat;
   return {
-    conversations: conversations
+    conversations: conversations,
+    total_pages: total_pages,
+    total_count: total_count
   };
 }
 
