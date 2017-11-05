@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 import { 
 	ALERT_VIEWS,
 	CONVERSATIONS_PER_ZONE,
+	TOP_ZONES,
   SUCCESS_CAMPAIGNS,
   ACTIVE_CAMPAIGNS,
   EXPIRED_CAMPAIGNS,
@@ -12,6 +13,7 @@ import {
 const initState = Immutable({
 	alert_views: [],
 	conversations_per_zone: [],
+	campaigns_per_zone: [],
   actived_campaigns: {},
   deactivated_campaigns: {},
   expired_campaigns: {},
@@ -27,6 +29,10 @@ switch (action.type) {
 	case CONVERSATIONS_PER_ZONE:
 		return Immutable.merge(state, {
 	    conversations_per_zone: action.payload
+	  })
+	case TOP_ZONES:
+		return Immutable.merge(state, {
+	    campaigns_per_zone: action.payload
 	  })
 	case SUCCESS_CAMPAIGNS:
 	  return Immutable.merge(state, {

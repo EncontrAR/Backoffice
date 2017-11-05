@@ -7,6 +7,7 @@ import ExpiredCampaigns from './ExpiredCampaigns';
 import CanceledCampaigns from './CanceledCampaigns';
 import AlertView from './AlertView';
 import ConversationsZone from './ConversationsZone';
+import TopZones from './TopZones';
 import { Tabs } from 'antd';
 
 const TabPane = Tabs.TabPane;
@@ -23,6 +24,7 @@ export default class Reports extends React.Component {
 						<TabPane tab="Campañas canceladas" key="4"><CanceledCampaigns /></TabPane>
 						<TabPane tab="Alertas/Vistas" key="5"><AlertView /></TabPane>
 						<TabPane tab="Reportes/Zonas" key="6"><ConversationsZone /></TabPane>
+						<TabPane tab="Campañas/Zonas" key="7"><TopZones /></TabPane>
 				  </Tabs>
 	  		</Box>
 			</LayoutWrapper>
