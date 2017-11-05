@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const ALERT_VIEWS = 'ALERT_VIEWS'
+export const CONVERSATIONS_PER_ZONE = 'CONVERSATIONS_PER_ZONE'
 export const SUCCESS_CAMPAIGNS = 'SUCCESS_CAMPAIGNS'
 export const ACTIVE_CAMPAIGNS = 'ACTIVE_CAMPAIGNS'
 export const EXPIRED_CAMPAIGNS = 'EXPIRED_CAMPAIGNS'
@@ -18,6 +19,18 @@ const reportActions = {
 		return (dispatch, getState) => {
 	  	axios.post('/admin/reports/alert_views', body)
 	      .then((response) => dispatch({ type: ALERT_VIEWS, payload: response.data }))
+		}
+	},
+
+	indexConversationsPerZone: (from, to) => {
+		const body = {
+			from: from,
+			to: to
+		}
+
+		return (dispatch, getState) => {
+	  	axios.post('/admin/reports/finder_reports', body)
+	      .then((response) => dispatch({ type: CONVERSATIONS_PER_ZONE, payload: response.data }))
 		}
 	},
 
