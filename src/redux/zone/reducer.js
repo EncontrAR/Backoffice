@@ -24,7 +24,7 @@ export default function campaignReducer(state = Immutable(initState), action) {
         total_count: action.payload.total_count
       })
     case PRE_CREATE_ZONE:
-      return Immutable.merge(state, {
+    return Immutable.merge(state, {
         newZone: action.payload
       })
     case CREATE_ZONE:
