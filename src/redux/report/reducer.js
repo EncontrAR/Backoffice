@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { 
+	ALERT_VIEWS,
   SUCCESS_CAMPAIGNS,
   ACTIVE_CAMPAIGNS,
   EXPIRED_CAMPAIGNS,
@@ -8,6 +9,7 @@ import {
 } from './actions';
 
 const initState = Immutable({
+	alert_views: [],
   actived_campaigns: {},
   deactivated_campaigns: {},
   expired_campaigns: {},
@@ -16,6 +18,10 @@ const initState = Immutable({
 
 export default function reportReducer(state = initState, action) {
 switch (action.type) {
+	case ALERT_VIEWS:
+		return Immutable.merge(state, {
+	    alert_views: action.payload
+	  })
 	case SUCCESS_CAMPAIGNS:
 	  return Immutable.merge(state, {
 	    success_campaigns: action.payload

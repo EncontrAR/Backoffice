@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+export const ALERT_VIEWS = 'ALERT_VIEWS'
 export const SUCCESS_CAMPAIGNS = 'SUCCESS_CAMPAIGNS'
 export const ACTIVE_CAMPAIGNS = 'ACTIVE_CAMPAIGNS'
 export const EXPIRED_CAMPAIGNS = 'EXPIRED_CAMPAIGNS'
@@ -7,6 +8,18 @@ export const CANCELED_CAMPAIGNS = 'CANCELED_CAMPAIGNS'
 export const CLEAR = 'CLEAR'
 
 const reportActions = {
+
+	indexAlertViews: (from, to) => {
+		const body = {
+			from: from,
+			to: to
+		}
+
+		return (dispatch, getState) => {
+	  	axios.post('/admin/reports/alert_views', body)
+	      .then((response) => dispatch({ type: ALERT_VIEWS, payload: response.data }))
+		}
+	},
 
 	indexStatusCampaigns: (status, from, to, page, limit) => {
 		var action = null
