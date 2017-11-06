@@ -8,8 +8,11 @@ export const RESET_CREATE_MSG = 'RESET_CREATE_MSG'
 export const CLEAR = 'CLEAR'
 export const SHOW_ZONE = 'SHOW_ZONE'
 export const UPDATE_ZONE = 'UPDATE_ZONE'
+export const UPDATE_ZONE_ERROR = 'UPDATE_ZONE_ERROR'
 export const PRE_UPDATE_ZONE = 'PRE_UPDATE_ZONE'
+export const RESET_EDIT_MSG = 'RESET_EDIT_MSG'
 export const DELETE_ZONE = 'DELETE_ZONE'
+export const DELETE_ZONE_ERROR = 'DELETE_ZONE_ERROR'
 
 const zoneActions = {
 
@@ -55,13 +58,19 @@ const zoneActions = {
 		return (dispatch, getState) => {
 	      axios.put(`/admin/zones/${updateZone.id}`, updateZone)
 	      .then((response) => dispatch({ type: UPDATE_ZONE, payload: updateZone }))
+	      .catch((error) => dispatch({ type: UPDATE_ZONE_ERROR }))
 		}
+	},
+
+	resetEditMsg: (newZone) => {
+		return { type: RESET_EDIT_MSG }
 	},
 
 	deleteZone: (zoneId) => {
 		return (dispatch, getState) => {
 	      axios.delete(`/admin/zones/${zoneId}`)
 	        .then((response) => dispatch({ type: DELETE_ZONE, payload: response.data }))
+					.catch((error) => dispatch({ type: DELETE_ZONE_ERROR }))
 		}
 	}
 };

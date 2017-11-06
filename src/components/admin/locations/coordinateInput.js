@@ -28,6 +28,7 @@ export default class CoordinateInput extends React.Component {
         	value={ this.props.value }
         	maxLength={ MAX_LENGTH }
         	onChange={ this.handleLocationChange.bind(this, this.props.coordinate) }
+          disabled={ !this.props.enabled }
         />
       </div>
 		)

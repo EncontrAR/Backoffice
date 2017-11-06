@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
 import Modal from '../../../../components/feedback/modal';
-import { Button, Col, Row, Input } from 'antd';
+import { message, Button, Col, Row } from 'antd';
+import ZoneView from '../../../../components/admin/locations/zoneView';
 import { Link } from 'react-router-dom';
 import zoneActions from '../../../../redux/zone/actions';
 import { connect } from 'react-redux';
 
 const {
-  showZone, updateZone, preUpdateZone, deleteZone, clear
+  showZone, updateZone, preUpdateZone, deleteZone, clear, resetEditMsg
 } = zoneActions;
 
 class ZoneDetail extends Component {
@@ -26,7 +27,19 @@ class ZoneDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-  	if (nextProps.deleteSuccess) this.props.history.goBack()		
+  	if (nextProps.deleteSuccess) {
+  		message.success('La zona se borró correctamente')
+  		this.props.history.goBack()
+  	} else if (nextProps.deleteFailure) {
+  		message.error('La zona no pudo ser borrada')
+  		this.props.resetEditMsg()
+  	} else if (nextProps.updateSuccess) {
+  		message.success('La zona se actualizó correctamente')
+  		this.props.resetEditMsg()
+  	} else if (nextProps.updateFailure) {
+			message.error('La zona no pudo ser actualizada')
+			this.props.resetEditMsg()
+  	}
   }
 
 	componentWillUnmount() {
@@ -65,13 +78,6 @@ class ZoneDetail extends Component {
       north_east_long: updateZone.north_east_long
 		})
 	}
-
-	handleInputChange(field, e) {
-		var updatedZoneData = Object.assign({}, this.props.zone, {})
-		updatedZoneData[field] = e.target.value
-
-		this.props.preUpdateZone(updatedZoneData)
-  }
   
   render() {
 		return (
@@ -101,64 +107,11 @@ class ZoneDetail extends Component {
 				      </Col>
 				    </Row>
 
-            <div className="isoBillingSection">
-              <div className="isoBillingForm">
-                <div className="isoInputFieldset">
-                  <Input
-                    addonBefore="Nombre de la zona"
-                    value={this.props.zone.label}
-                    disabled={!this.state.edition}
-                    onChange={this.handleInputChange.bind(this, 'name')}
-                  />
-                </div>
-
-                <Row type="flex" justify="start">
-						      <Col span={11}>
-		                <div className="isoInputFieldset">
-		                  <Input 
-		                  	addonBefore="Latitud inferior"
-		                  	value={this.props.zone.south_west_lat}
-		                  	disabled={!this.state.edition}
-		                  	onChange={this.handleInputChange.bind(this, 'south_west_lat')}
-		                  />
-		                </div>
-						      </Col>
-						      <Col span={11} offset={2}>
-		                <div className="isoInputFieldset">
-		                  <Input 
-		                  	addonBefore="Latitud superior"
-		                  	value={this.props.zone.north_east_lat}
-		                  	disabled={!this.state.edition}
-		                  	onChange={this.handleInputChange.bind(this, 'north_east_lat')}
-		                 	/>
-		                </div>
-						      </Col>
-						    </Row>
-
-                <Row type="flex" justify="start">
-						      <Col span={11}>
-		                <div className="isoInputFieldset">
-		                  <Input 
-			                  addonBefore="Longitud inferior"
-			                  value={this.props.zone.south_west_long}
-			                  disabled={!this.state.edition}
-			                  onChange={this.handleInputChange.bind(this, 'south_west_long')}
-			                />
-		                </div>
-						      </Col>
-						      <Col span={11} offset={2}>
-		                <div className="isoInputFieldset">
-		                  <Input 
-		                  	addonBefore="Longitud superior"
-		                  	value={this.props.zone.north_east_long}
-		                  	disabled={!this.state.edition}
-		                  	onChange={this.handleInputChange.bind(this, 'north_east_long')}
-		                  />
-		                </div>
-						      </Col>
-						    </Row>
-              </div>
-            </div>
+				    <ZoneView
+				    	edit={ this.state.edition }
+          		onZoneChange={(zone) => { this.props.preUpdateZone(zone) }} 
+          		zone={ this.props.zone }
+			    	/>
           </div>
         </Box>
       </LayoutWrapper>
@@ -177,13 +130,14 @@ ZoneDetail.defaultProps = {
 };
 
 function mapStateToProps(state) {
-	const { zone, deleteSuccess } = state.Zone;
+	const { zone, updateSuccess, updateFailure, deleteSuccess, deleteFailure } = state.Zone;
   return {
     zone: zone,
-    deleteSuccess: deleteSuccess
+    updateSuccess: updateSuccess,
+    updateFailure: updateFailure,
+    deleteSuccess: deleteSuccess,
+    deleteFailure: deleteFailure
   };
 }
 
-export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone, clear })(ZoneDetail)
-
-
+export default connect(mapStateToProps, { showZone, updateZone, preUpdateZone, deleteZone, clear, resetEditMsg })(ZoneDetail)
