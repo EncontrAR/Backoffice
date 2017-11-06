@@ -3,6 +3,8 @@ import axios from 'axios'
 export const INDEX_ALL_ZONES = 'INDEX_ALL_ZONES'
 export const PRE_CREATE_ZONE = 'PRE_CREATE_ZONE'
 export const CREATE_ZONE = 'CREATE_ZONE'
+export const CREATE_ZONE_ERROR = 'CREATE_ZONE_ERROR'
+export const RESET_CREATE_MSG = 'RESET_CREATE_MSG'
 export const CLEAR = 'CLEAR'
 export const SHOW_ZONE = 'SHOW_ZONE'
 export const UPDATE_ZONE = 'UPDATE_ZONE'
@@ -26,7 +28,12 @@ const zoneActions = {
 		return (dispatch, getState) => {
 	      axios.post('/admin/zones/', newZone)
 	      .then((response) => dispatch({ type: CREATE_ZONE, payload: response.data }))
+	      .catch((error) => dispatch({ type: CREATE_ZONE_ERROR }))
 		}
+	},
+
+	resetCreateMsg: (newZone) => {
+		return { type: RESET_CREATE_MSG }
 	},
 
 	clear: () => {

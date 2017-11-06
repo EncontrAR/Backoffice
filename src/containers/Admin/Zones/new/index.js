@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Button, Col, Row, Input } from 'antd';
+import { message, Button, Col, Row, Input } from 'antd';
 import SearchInput from '../../../../components/admin/locations/searchInput';
 import CoordinateInput from '../../../../components/admin/locations/coordinateInput';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 const {
 	preCreateZone,
   createZone,
+  resetCreateMsg,
   clear
 } = zoneActions;
 
@@ -44,7 +45,13 @@ class NewZone extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-  	if (nextProps.creationSuccess) this.props.history.goBack()		
+  	if (nextProps.creationSuccess) {
+  		message.success('Zona creada')
+  		this.props.history.goBack()		
+  	} else if (nextProps.creationFailure) {
+  		message.error('No pudo crearse la zona')
+  		this.props.resetCreateMsg()
+  	}
   }
 
 	componentWillUnmount() {
@@ -141,16 +148,18 @@ NewZone.defaultProps = {
 		north_east_lat: 0.0,
 		north_east_long: 0.0
   },
-  creationSuccess: false
+  creationSuccess: false,
+  creationFailure: false
 };
 
 function mapStateToProps(state) {
-	const { newZone, creationSuccess } = state.Zone;
+	const { newZone, creationSuccess, creationFailure } = state.Zone;
   return {
     newZone: newZone,
-    creationSuccess: creationSuccess
+    creationSuccess: creationSuccess,
+    creationFailure: creationFailure
   };
 }
 
-export default connect(mapStateToProps, { preCreateZone, createZone, clear })(NewZone)
+export default connect(mapStateToProps, { preCreateZone, createZone, resetCreateMsg, clear })(NewZone)
 
