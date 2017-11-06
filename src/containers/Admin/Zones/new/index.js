@@ -46,7 +46,7 @@ class NewZone extends Component {
 
   componentWillReceiveProps(nextProps) {
   	if (nextProps.creationSuccess) {
-  		message.success('Zona creada')
+  		message.success('Zona creada exitosamente')
   		this.props.history.goBack()		
   	} else if (nextProps.creationFailure) {
   		message.error('No pudo crearse la zona')
