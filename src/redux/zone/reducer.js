@@ -2,7 +2,8 @@ import Immutable from 'seamless-immutable'
 import { 
   INDEX_ALL_ZONES, PRE_CREATE_ZONE, CREATE_ZONE, 
   SHOW_ZONE, PRE_UPDATE_ZONE, UPDATE_ZONE,
-  DELETE_ZONE, CLEAR
+  DELETE_ZONE, CLEAR, CREATE_ZONE_ERROR, RESET_CREATE_MSG,
+  UPDATE_ZONE_ERROR, RESET_EDIT_MSG
 } from './actions';
 
 const initState = Immutable({
@@ -12,7 +13,11 @@ const initState = Immutable({
   zone: {},
   newZone: {},
   creationSuccess: false,
-  deleteSuccess: false
+  creationFailure: false,
+  updateSuccess: false,
+  updateFailure: false,
+  deleteSuccess: false,
+  deleteFailure: false
 });
 
 export default function campaignReducer(state = Immutable(initState), action) {
@@ -24,19 +29,34 @@ export default function campaignReducer(state = Immutable(initState), action) {
         total_count: action.payload.total_count
       })
     case PRE_CREATE_ZONE:
-      return Immutable.merge(state, {
+    return Immutable.merge(state, {
         newZone: action.payload
       })
     case CREATE_ZONE:
       return Immutable.merge(state, {
-        creationSuccess: true
+        creationSuccess: true,
+        creationFailure: false
+      })
+    case CREATE_ZONE_ERROR:
+      return Immutable.merge(state, {
+        creationSuccess: false,
+        creationFailure: true
+      })
+    case RESET_CREATE_MSG:
+      return Immutable.merge(state, {
+        creationSuccess: false,
+        creationFailure: false
       })
     case CLEAR:
       return Immutable.merge(state, {
         zone: {},
         newZone: {},
         creationSuccess: false,
-        deleteSuccess: false
+        creationFailure: false,
+        updateSuccess: false,
+        updateFailure: false,
+        deleteSuccess: false,
+        deleteFailure: false
       })
     case SHOW_ZONE:
       return Immutable.merge(state, {
@@ -48,11 +68,26 @@ export default function campaignReducer(state = Immutable(initState), action) {
       })
     case UPDATE_ZONE:
       return Immutable.merge(state, {
-        zone: action.payload
+        zone: action.payload,
+        updateSuccess: true,
+        updateFailure: false
+      })
+    case UPDATE_ZONE_ERROR:
+      return Immutable.merge(state, {
+        updateSuccess: false,
+        updateFailure: true
+      })
+    case RESET_EDIT_MSG:
+      return Immutable.merge(state, {
+        updateSuccess: false,
+        updateFailure: false,
+        deleteSuccess: false,
+        deleteFailure: false
       })
     case DELETE_ZONE:
       return Immutable.merge(state, {
-        deleteSuccess: true
+        deleteSuccess: true,
+        deleteFailure: false
       })
     default:
       return state

@@ -10,7 +10,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
-    if (error.response.status === 401) {
+    if (error.response !== null && error.response.status === 401) {
       localStorage.setItem('auth_token', null)
     }
     return Promise.reject(error);

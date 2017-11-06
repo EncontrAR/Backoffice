@@ -55,6 +55,7 @@
     "react-moment": "^0.6.5",
     "react-perfect-scrollbar": "^0.2.0",
     "react-placeholder": "^1.0.5",
+    "react-places-autocomplete": "^5.4.3",
     "react-quill": "^1.0.0-rc.2",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
