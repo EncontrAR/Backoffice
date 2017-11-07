@@ -4,6 +4,7 @@ import {
 	CONVERSATIONS_PER_ZONE,
 	TOP_ZONES,
   SUCCESS_CAMPAIGNS,
+  FAILURE_CAMPAIGNS,
   ACTIVE_CAMPAIGNS,
   EXPIRED_CAMPAIGNS,
   CANCELED_CAMPAIGNS,
@@ -17,7 +18,8 @@ const initState = Immutable({
   actived_campaigns: {},
   deactivated_campaigns: {},
   expired_campaigns: {},
-  success_campaigns: {}
+  success_campaigns: {},
+  failure_campaigns: {}
 });
 
 export default function reportReducer(state = initState, action) {
@@ -37,6 +39,10 @@ switch (action.type) {
 	case SUCCESS_CAMPAIGNS:
 	  return Immutable.merge(state, {
 	    success_campaigns: action.payload
+	  })
+	case FAILURE_CAMPAIGNS:
+	  return Immutable.merge(state, {
+	    failure_campaigns: action.payload
 	  })
 	case ACTIVE_CAMPAIGNS:
 	  return Immutable.merge(state, {

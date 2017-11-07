@@ -4,6 +4,7 @@ export const ALERT_VIEWS = 'ALERT_VIEWS'
 export const CONVERSATIONS_PER_ZONE = 'CONVERSATIONS_PER_ZONE'
 export const TOP_ZONES = 'TOP_ZONES'
 export const SUCCESS_CAMPAIGNS = 'SUCCESS_CAMPAIGNS'
+export const FAILURE_CAMPAIGNS = 'FAILURE_CAMPAIGNS'
 export const ACTIVE_CAMPAIGNS = 'ACTIVE_CAMPAIGNS'
 export const EXPIRED_CAMPAIGNS = 'EXPIRED_CAMPAIGNS'
 export const CANCELED_CAMPAIGNS = 'CANCELED_CAMPAIGNS'
@@ -55,7 +56,7 @@ const reportActions = {
 				action = ACTIVE_CAMPAIGNS
 				break
 
-			case 'deactivated':
+			case 'canceled':
 				action = CANCELED_CAMPAIGNS
 				break
 
@@ -66,6 +67,11 @@ const reportActions = {
 			case 'success':
 				action = SUCCESS_CAMPAIGNS
 				break
+
+			case 'failure':
+				action = FAILURE_CAMPAIGNS
+				break
+
 			default:
 				break
 		}
