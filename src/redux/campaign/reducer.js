@@ -3,12 +3,14 @@ import {
   INDEX_ALL_CAMPAIGNS,
   PRE_CREATE_CAMPAIGN,
   CREATE_CAMPAIGN,
+  CREATE_CAMPAIGN_ERROR,
   SHOW_CAMPAIGN,
   PRE_UPDATE_CAMPAIGN,
   UPDATE_CAMPAIGN,
-  DELETE_CAMPAIGN,
+  UPDATE_CAMPAIGN_ERROR,
   SEARCH_MISSING_PEOPLE,
-  CLEAR
+  CLEAR,
+  CLEAR_MSG
 } from './actions';
 
 const emptyCampaign = {
@@ -33,7 +35,9 @@ const initState = Immutable({
   campaign: emptyCampaign,
   new_campaign: emptyNewCampaign,
   creationSuccess: false,
-  deleteSuccess: false,
+  creationFailure: false,
+  updateSuccess: false,
+  updateFailure: false,
   available_persons: []
 });
 
@@ -51,14 +55,29 @@ export default function campaignReducer(state = initState, action) {
       })
     case CREATE_CAMPAIGN:
       return Immutable.merge(state, {
-        creationSuccess: true
+        creationSuccess: true,
+        creationFailure: false
+      })
+    case CREATE_CAMPAIGN_ERROR:
+      return Immutable.merge(state, {
+        creationSuccess: false,
+        creationFailure: true
+      })
+    case CLEAR_MSG:
+      return Immutable.merge(state, {
+        creationSuccess: false,
+        creationFailure: false,
+        updateSuccess: false,
+        updateFailure: false
       })
     case CLEAR:
       return Immutable.merge(state, {
         new_campaign: emptyNewCampaign,
         campaign: emptyCampaign,
         creationSuccess: false,
-        deleteSuccess: false,
+        creationFailure: false,
+        updateSuccess: false,
+        updateFailure: false,
         available_persons: []
       })
     case SHOW_CAMPAIGN:
@@ -71,11 +90,14 @@ export default function campaignReducer(state = initState, action) {
       })
     case UPDATE_CAMPAIGN:
       return Immutable.merge(state, {
-        campaign: action.payload
+        campaign: action.payload,
+        updateSuccess: true,
+        updateFailure: false
       })
-    case DELETE_CAMPAIGN:
+    case UPDATE_CAMPAIGN_ERROR:
       return Immutable.merge(state, {
-        deleteSuccess: true
+        updateSuccess: false,
+        updateFailure: true
       })
     case SEARCH_MISSING_PEOPLE:
       return Immutable.merge(state, {

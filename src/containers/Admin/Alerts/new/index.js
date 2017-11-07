@@ -1,7 +1,7 @@
 import React from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Input, Button, Col, Row } from 'antd';
+import { message, Input, Button, Col, Row } from 'antd';
 import Table from '../../../../components/uielements/table';
 import alertActions from '../../../../redux/alert/actions';
 import { connect } from 'react-redux';
@@ -10,7 +10,8 @@ const {
   preCreateAlert,
   createAlert,
   searchZone,
-  clear
+  clear,
+  clearMsg
 } = alertActions;
 
 class NewAlert extends React.Component {
@@ -30,7 +31,14 @@ class NewAlert extends React.Component {
 	}
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.creationSuccess) this.props.history.goBack()    
+    if (nextProps.creationSuccess) {
+    	message.success('El alerta fue enviado correctamente a todos los finder de la zona indicada.')
+    	this.props.history.goBack()
+    } else if (nextProps.creationFailure) {
+    	message.error('El alerta no pudo ser creado.')
+    }
+
+    this.props.clearMsg()
   }
 
   componentWillUnmount() {
@@ -48,10 +56,7 @@ class NewAlert extends React.Component {
 
   handleInputLabel(field, value) {
     var newAlert = Object.assign({}, this.props.newAlert, {})
-    console.dir(field)
-    console.dir(value)
     newAlert[field] = value.target.value
-    console.dir(newAlert)
     this.props.preCreateAlert(newAlert)
   }
 
@@ -125,7 +130,7 @@ class NewAlert extends React.Component {
 		          </Col>
 		          <Col span={5} offset={15}>
 		             <Row type="flex" justify="space-around">
-		              <Button type="primary" size="small" onClick={this.handleSave}>Guardar</Button>
+		              <Button type="primary" size="small" onClick={this.handleSave}>Enviar</Button>
 		              <Button type="default" size="small" onClick={this.handleCancel}>Cancelar</Button>
 		            </Row>
 		          </Col>
@@ -185,14 +190,15 @@ NewAlert.defaultProps = {
 }
 
 function mapStateToProps(state) {
-  const { new_alert, creationSuccess, zones } = state.Alert;
+  const { new_alert, creationSuccess, creationFailure, zones } = state.Alert;
   return {
     newAlert: new_alert,
     creationSuccess: creationSuccess,
+    creationFailure: creationFailure,
     zones: zones
   };
 }
 
 export default connect(mapStateToProps, { 
-  preCreateAlert, createAlert, searchZone, clear
+  preCreateAlert, createAlert, searchZone, clear, clearMsg
 })(NewAlert);
