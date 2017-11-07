@@ -78,6 +78,34 @@ class CampaignDetailGeneral extends React.Component {
     this.props.preUpdateCampaign(campaign)
   }
 
+  showStatus() {
+    if (this.props.campaign.status !== 'expired') {
+      return (
+        <Select 
+          value={this.props.campaign.status}
+          onChange={ this.handleStatusChange }
+          disabled={!this.state.edition}>
+
+          <Option value="actived">Activada</Option>
+          <Option value="canceled">Cancelada</Option>
+          <Option value="success">Cerrada con éxito</Option>
+          <Option value="failure">Cerrada sin éxito</Option>
+
+        </Select>
+      )
+    } else {
+      return (
+        <Select 
+          value={this.props.campaign.status}
+          disabled={ true }>
+
+          <Option value="expired">Expirada</Option>
+
+        </Select>    
+      )
+    }
+  }
+
   render() {
 
     var styleColLeft = {
@@ -126,17 +154,7 @@ class CampaignDetailGeneral extends React.Component {
               disabled={!this.state.edition} />
 
             <h4 style={{ marginTop: '15px' }}>Estado</h4><br/>
-            <Select 
-              value={this.props.campaign.status}
-              onChange={ this.handleStatusChange }
-              disabled={!this.state.edition}>
-
-              <Option value="actived">Activada</Option>
-              <Option value="canceled">Cancelada</Option>
-              <Option value="success">Cerrada con éxito</Option>
-              <Option value="failure">Cerrada sin éxito</Option>
-
-            </Select>
+            { this.showStatus() }
 
             <h4 style={{ marginTop: '15px' }}>Persona perdida</h4><br/>
             <Row type="flex" justify="start" style={{ marginBottom: '15px', alignItems: 'center' }}>
