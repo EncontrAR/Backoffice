@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { message } from 'antd';
 import Input from '../../components/uielements/input';
 import Button from '../../components/uielements/button';
 import authActions from '../../redux/auth/actions';
 import IntlMessages from '../../components/utility/intlMessages';
 
-const { login } = authActions;
+const { login, clearMsg } = authActions;
 
 class SignIn extends React.Component {
 
@@ -14,6 +15,13 @@ class SignIn extends React.Component {
     super(props)
     this.state = { 
       redirectToReferrer: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loginFailure) {
+      message.error('El usuario y/o contraseña son inválidos.')
+      this.props.clearMsg()
     }
   }
 
@@ -71,10 +79,11 @@ SignIn.defaultProps = {
 }
 
 function mapStateToProps(state) {
-  const { loginSuccess } = state.Auth
+  const { loginSuccess, loginFailure } = state.Auth
   return {
-    isLoggedIn: loginSuccess
+    isLoggedIn: loginSuccess,
+    loginFailure: loginFailure
   }
 }
 
-export default connect(mapStateToProps, { login } )(SignIn)
+export default connect(mapStateToProps, { login, clearMsg } )(SignIn)
