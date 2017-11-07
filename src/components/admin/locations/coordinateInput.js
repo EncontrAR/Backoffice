@@ -6,7 +6,8 @@ const MAX_LENGTH = 15
 export default class CoordinateInput extends React.Component {
 
   handleLocationChange(field, e) {
-		if ((field.includes('lat') && this.isLatitude(e.target.value)) 
+		if (e.target.value === '-'
+      || (field.includes('lat') && this.isLatitude(e.target.value)) 
 			|| (field.includes('long') && this.isLongitude(e.target.value))) {
 		 	this.props.onLocationChange(field, e)
 		}
