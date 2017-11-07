@@ -3,7 +3,9 @@ import {
   INDEX_ALERTS_FOR_CAMPAIGN,
   PRE_CREATE_ALERT,
   CREATE_ALERT,
+  CREATE_ALERT_ERROR,
   CLEAR,
+  CLEAR_MSG,
   SHOW_ALERT,
   PRE_UPDATE_ALERT,
   UPDATE_ALERT,
@@ -31,6 +33,7 @@ const initState = Immutable({
   alert: emptyAlert,         
   new_alert: {},
   creationSuccess: false,
+  creationFailure: false,
   deleteSuccess: false,
   zones: []
 });
@@ -49,13 +52,26 @@ export default function alertReducer(state = initState, action) {
       })
     case CREATE_ALERT:
       return Immutable.merge(state, {
-        creationSuccess: true
+        creationSuccess: true,
+        creationFailure: false,
+      })
+    case CREATE_ALERT_ERROR:
+      return Immutable.merge(state, {
+        creationSuccess: false,
+        creationFailure: true
       })
     case CLEAR:
       return Immutable.merge(state, {
         new_alert: {},
         zones: [],
         creationSuccess: false,
+        creationFailure: false,
+        deleteSuccess: false
+      })
+    case CLEAR_MSG:
+      return Immutable.merge(state, {
+        creationSuccess: false,
+        creationFailure: false,
         deleteSuccess: false
       })
     case SHOW_ALERT:

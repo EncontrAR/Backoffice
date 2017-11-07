@@ -3,7 +3,9 @@ import axios from 'axios'
 export const INDEX_ALERTS_FOR_CAMPAIGN = 'INDEX_ALERTS_FOR_CAMPAIGN'
 export const PRE_CREATE_ALERT = 'PRE_CREATE_ALERT'
 export const CREATE_ALERT = 'CREATE_ALERT'
+export const CREATE_ALERT_ERROR = 'CREATE_ALERT_ERROR'
 export const CLEAR = 'CLEAR'
+export const CLEAR_MSG = 'CLEAR_MSG'
 export const SHOW_ALERT = 'SHOW_ALERT'
 export const PRE_UPDATE_ALERT = 'PRE_UPDATE_ALERT'
 export const UPDATE_ALERT = 'UPDATE_ALERT'
@@ -31,11 +33,16 @@ const alertActions = {
 		return (dispatch, getState) => {
 	      axios.post('/admin/alerts/', newAlert)
 	      	.then((response) => dispatch({ type: CREATE_ALERT, payload: response.data }))
+	      	.catch((error) => dispatch({ type: CREATE_ALERT_ERROR }))
 		}
 	},
 
 	clear: () => {
-  	return { type: CLEAR, payload: null }
+  	return { type: CLEAR }
+	},
+
+	clearMsg: () => {
+		return { type: CLEAR_MSG }
 	},
 
 	showAlert: (alertId) => {

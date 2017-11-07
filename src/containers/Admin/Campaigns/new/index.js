@@ -1,7 +1,7 @@
 import React from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Input, Button, Col, Row, DatePicker } from 'antd';
+import { message, Input, Button, Col, Row, DatePicker } from 'antd';
 import moment from 'moment-timezone';
 import SelectMP from './selectMissingPerson';
 import { Link } from 'react-router-dom';
@@ -11,11 +11,14 @@ import { connect } from 'react-redux';
 const TextArea = Input.TextArea;
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TIMEZONE = 'America/Argentina/Buenos_Aires';
+const MAX_LENGTH_TITLE = 30;
+const MAX_LENGTH_DESCRIPTION= 150;
 
 const {
   preCreateCampaign,
   createCampaign,
-  clear
+  clear,
+  clearMsg
 } = campaignActions;
 
 class NewCampaign extends React.Component {
@@ -28,7 +31,14 @@ class NewCampaign extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.creationSuccess) this.props.history.goBack()    
+    if (nextProps.creationSuccess) {
+      message.success('La campaña ha sido cargada exitosamente. Ya puede generar un alerta de búsqueda de persona.')
+      this.props.history.goBack()
+    } else if (nextProps.creationFailure) {
+      message.error('La campaña no pudo ser creada.')
+    }
+
+    this.props.clearMsg()
   }
 
   componentWillUnmount() {
@@ -78,7 +88,7 @@ class NewCampaign extends React.Component {
                 <h3 className="isoSectionTitle">Alta de campaña</h3>
               </Col>
               <Col span={5} offset={15}>
-                 <Row type="flex" justify="space-around">
+                 <Row>
                   <Button type="primary" size="small" onClick={this.handleSave}>Guardar</Button>
                   <Button type="default" size="small">
                     <Link to={'/admin/campaigns'}>Cancelar</Link>
@@ -92,12 +102,14 @@ class NewCampaign extends React.Component {
                 <Input
                   addonBefore="Título"
                   value={this.props.newCampaign.title}
+                  maxLength={ MAX_LENGTH_TITLE }
                   onChange={this.handleInputChange.bind(this, 'title')}
                 />
 
                 <h4 style={{ marginTop: '15px' }}>Descripción</h4>
                 <TextArea
                   value={this.props.newCampaign.description}
+                  maxLength={ MAX_LENGTH_DESCRIPTION }
                   onChange={this.handleInputChange.bind(this, 'description')}
                 />
 
@@ -125,17 +137,19 @@ NewCampaign.defaultProps = {
     status: 'activated',
     missing_person_id: 0
   },
-  creationSuccess: false
+  creationSuccess: false,
+  creationFailure: false
 };
 
 function mapStateToProps(state) {
-  const { new_campaign, creationSuccess } = state.Campaign;
+  const { new_campaign, creationSuccess, creationFailure } = state.Campaign;
   return {
     newCampaign: new_campaign,
-    creationSuccess: creationSuccess
+    creationSuccess: creationSuccess,
+    creationFailure: creationFailure
   };
 }
 
 export default connect(mapStateToProps, { 
-  preCreateCampaign, createCampaign, clear
+  preCreateCampaign, createCampaign, clear, clearMsg
 })(NewCampaign);

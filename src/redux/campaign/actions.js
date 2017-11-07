@@ -3,11 +3,13 @@ import axios from 'axios'
 export const INDEX_ALL_CAMPAIGNS = 'INDEX_ALL_CAMPAIGNS'
 export const PRE_CREATE_CAMPAIGN = 'PRE_CREATE_CAMPAIGN'
 export const CREATE_CAMPAIGN = 'CREATE_CAMPAIGN'
+export const CREATE_CAMPAIGN_ERROR = 'CREATE_CAMPAIGN_ERROR'
 export const CLEAR = 'CLEAR'
+export const CLEAR_MSG = 'CLEAR_MSG'
 export const SHOW_CAMPAIGN = 'SHOW_CAMPAIGN'
 export const PRE_UPDATE_CAMPAIGN = 'PRE_UPDATE_CAMPAIGN'
 export const UPDATE_CAMPAIGN = 'UPDATE_CAMPAIGN'
-export const DELETE_CAMPAIGN = 'DELETE_CAMPAIGN'
+export const UPDATE_CAMPAIGN_ERROR = 'UPDATE_CAMPAIGN_ERROR'
 export const SEARCH_MISSING_PEOPLE = 'SEARCH_MISSING_PEOPLE'
 
 const campaignActions = {
@@ -27,11 +29,16 @@ const campaignActions = {
 		return (dispatch, getState) => {
 	      axios.post('/admin/campaigns/', newCampaign)
 	      	.then((response) => dispatch({ type: CREATE_CAMPAIGN, payload: response.data }))
+	      	.catch((error) => dispatch({ type: CREATE_CAMPAIGN_ERROR }))
 		}
 	},
 
 	clear: () => {
-  	return { type: CLEAR, payload: null }
+  	return { type: CLEAR }
+	},
+
+	clearMsg: () => {
+		return { type: CLEAR_MSG }
 	},
 
 	showCampaign: (campaignId) => {
@@ -49,13 +56,7 @@ const campaignActions = {
 		return (dispatch, getState) => {
 	      axios.put(`/admin/campaigns/${updateCampaign.id}`, updateCampaign)
 	      	.then((response) => dispatch({ type: UPDATE_CAMPAIGN, payload: updateCampaign }))
-		}
-	},
-
-	deleteCampaign: (campaignId) => {
-		return (dispatch, getState) => {
-	      axios.delete(`/admin/campaigns/${campaignId}`)
-	        .then((response) => dispatch({ type: DELETE_CAMPAIGN, payload: response.data }))
+	      	.catch((error) => dispatch({ type: UPDATE_CAMPAIGN_ERROR }))
 		}
 	},
 

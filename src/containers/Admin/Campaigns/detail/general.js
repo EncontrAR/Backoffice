@@ -1,6 +1,5 @@
 import React from 'react';
-import Modal from '../../../../components/feedback/modal';
-import { Input, Button, Col, Row, DatePicker, Select } from 'antd';
+import { message, Input, Button, Col, Row, DatePicker, Select } from 'antd';
 import moment from 'moment-timezone';
 import campaignActions from '../../../../redux/campaign/actions';
 import { connect } from 'react-redux';
@@ -10,13 +9,15 @@ const TextArea = Input.TextArea;
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TIMEZONE = 'America/Argentina/Buenos_Aires';
+const MAX_LENGTH_TITLE = 30;
+const MAX_LENGTH_DESCRIPTION= 150;
 
 const {
   showCampaign,
   preUpdateCampaign,
   updateCampaign,
-  deleteCampaign,
-  clear
+  clear,
+  clearMsg
 } = campaignActions;
 
 class CampaignDetailGeneral extends React.Component {
@@ -25,17 +26,21 @@ class CampaignDetailGeneral extends React.Component {
     super(props)
     this.state = {
       edition: false,
-      deleteModal: false
     }
   }
 
   componentWillMount() {
     this.props.showCampaign(this.props.campaignId)
-    console.dir(this.props.campaign)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.deleteSuccess) this.props.history.goBack()    
+    if (nextProps.updateSuccess) {
+      message.success('Campaña actualizada correctamente')
+    } else if (nextProps.updateFailure) {
+      message.error('La campaña no pudo ser actualizada')
+    }
+    
+    this.props.clearMsg()
   }
 
   componentWillUnmount() {
@@ -52,18 +57,6 @@ class CampaignDetailGeneral extends React.Component {
 
   handleOnCancel = () => {
     this.setState({ edition: false })
-  }
-
-  handleOnDelete = () => {
-    this.setState({ deleteModal: true })
-  }
-
-  handleDeleteCancel = () => {
-    this.setState({ deleteModal: false })
-  }
-
-  handleDeleteOk = () => {
-    this.props.deleteCampaign(this.props.campaignId)
   }
 
   handleInputChange(field, e) {
@@ -100,17 +93,9 @@ class CampaignDetailGeneral extends React.Component {
             <h3 className="isoSectionTitle">{ this.state.edition ? 'Edición de campaña' :  'Detalle de campaña' }</h3>
           </Col>
           <Col span={7} offset={12}>
-             <Row type="flex" justify="space-around">
+             <Row>
               <Button type="primary" size="small" onClick={this.handleOnPress}>{ this.state.edition ? 'Guardar' :  'Editar' }</Button>
               <Button type="default" size="small" onClick={this.handleOnCancel}>Cancelar</Button>
-              <Button type="danger" size="small" onClick={this.handleOnDelete}>Borrar</Button>
-              <Modal
-                title="Borrar persona perdida"
-                visible={this.state.deleteModal}
-                onOk={this.handleDeleteOk}
-                onCancel={this.handleDeleteCancel}>
-                <p>¿Estás seguro que querés borrar la persona perdida?</p>
-              </Modal>
             </Row>
           </Col>
         </Row>
@@ -120,6 +105,7 @@ class CampaignDetailGeneral extends React.Component {
             <Input
               addonBefore="Título"
               value={this.props.campaign.title}
+              maxLength={ MAX_LENGTH_TITLE }
               onChange={this.handleInputChange.bind(this, 'title')}
               disabled={!this.state.edition}
             />
@@ -127,6 +113,7 @@ class CampaignDetailGeneral extends React.Component {
             <h4 style={{ marginTop: '15px' }}>Descripción</h4>
             <TextArea
               value={this.props.campaign.description}
+              maxLength={ MAX_LENGTH_DESCRIPTION }
               onChange={this.handleInputChange.bind(this, 'description')}
               disabled={!this.state.edition}
             />
@@ -145,9 +132,9 @@ class CampaignDetailGeneral extends React.Component {
               disabled={!this.state.edition}>
 
               <Option value="actived">Activada</Option>
-              <Option value="deactivated">Desactivada</Option>
-              <Option value="expired">Expirada</Option>
-              <Option value="success">Exitosa</Option>
+              <Option value="canceled">Cancelada</Option>
+              <Option value="success">Cerrada con éxito</Option>
+              <Option value="failure">Cerrada sin éxito</Option>
 
             </Select>
 
@@ -180,14 +167,14 @@ CampaignDetailGeneral.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  const { campaign, deleteSuccess } = state.Campaign;
-  console.dir(moment(campaign.expire_date, DATE_FORMAT))
+  const { campaign, updateSuccess, updateFailure } = state.Campaign;
   return {
     campaign: campaign,
-    deleteSuccess: deleteSuccess
+    updateSuccess: updateSuccess,
+    updateFailure: updateFailure
   };
 }
 
 export default connect(mapStateToProps, { 
-  showCampaign, preUpdateCampaign, updateCampaign, deleteCampaign, clear
+  showCampaign, preUpdateCampaign, updateCampaign, clear, clearMsg
 })(CampaignDetailGeneral);

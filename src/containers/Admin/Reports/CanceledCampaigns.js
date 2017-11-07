@@ -10,7 +10,7 @@ const { indexStatusCampaigns } = reportActions;
 export class CanceledCampaigns extends React.Component {
 
 	loadPage = (from, to, page, limit) => {
-		this.props.indexStatusCampaigns('deactivated', from, to, page, limit)
+		this.props.indexStatusCampaigns('canceled', from, to, page, limit)
 	}
 
 	render() {
