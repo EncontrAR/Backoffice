@@ -64,7 +64,7 @@ class SignIn extends React.Component {
 
             <div className="isoInputWrapper isoLeftRightComponent">
               <Button type="primary" onClick={this.handleLogin}>
-                <IntlMessages id="page.signInButton" />
+                Ingresar
               </Button>
             </div>
           </div>
