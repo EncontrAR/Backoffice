@@ -84,7 +84,8 @@ class CampaignDetailGeneral extends React.Component {
         <Select 
           value={this.props.campaign.status}
           onChange={ this.handleStatusChange }
-          disabled={!this.state.edition}>
+          disabled={!this.state.edition}
+          style={{ width: '125px' }}>
 
           <Option value="actived">Activada</Option>
           <Option value="canceled">Cancelada</Option>
@@ -97,7 +98,8 @@ class CampaignDetailGeneral extends React.Component {
       return (
         <Select 
           value={this.props.campaign.status}
-          disabled={ true }>
+          disabled={ true }
+          style={{ width: '125px' }}>
 
           <Option value="expired">Expirada</Option>
 
