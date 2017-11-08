@@ -4,6 +4,7 @@ import Box from '../../../../components/utility/box';
 import { Button, Tabs, Row } from 'antd';
 import General from './general';
 import CampaignImages from './images';
+import Contacts from './contacts';
 import Alerts from '../../Alerts/Alerts';
 
 const TabPane = Tabs.TabPane;
@@ -20,6 +21,7 @@ export default class CampaignDetail extends React.Component {
 				    <TabPane tab="General" key="1"><General campaignId={this.props.match.params.id} /></TabPane>
 				    <TabPane tab="Alertas" key="2"><Alerts campaignId={this.props.match.params.id} /></TabPane>
 				    <TabPane tab="Imágenes" key="3"><CampaignImages campaignId={this.props.match.params.id} /></TabPane>
+				    <TabPane tab="Contactos" key="4"><Contacts campaignId={this.props.match.params.id} /></TabPane>
 				  </Tabs>
 	  		</Box>
 			</LayoutWrapper>

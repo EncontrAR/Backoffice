@@ -19,6 +19,7 @@ import Alert from './alert/reducer'
 import Chat from './chat/reducer'
 import Report from './report/reducer'
 import CampaignImage from './campaignImages/reducer'
+import CampaignConversations from './campaignConversations/reducer'
 
 export {
   Auth,
@@ -41,5 +42,6 @@ export {
   Alert,
   Chat,
   Report,
-  CampaignImage
+  CampaignImage,
+  CampaignConversations
 };
