@@ -18,6 +18,7 @@ import Finder from './finder/reducer'
 import Alert from './alert/reducer'
 import Chat from './chat/reducer'
 import Report from './report/reducer'
+import CampaignImage from './campaignImages/reducer'
 
 export {
   Auth,
@@ -39,5 +40,6 @@ export {
   Finder,
   Alert,
   Chat,
-  Report
+  Report,
+  CampaignImage
 };
