@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from '../../../components/uielements/table';
 import Button from '../../../components/uielements/button';
+import renderTitle from '../../../helpers/text/filter';
 import { Row, Col, DatePicker } from 'antd';
 import moment from 'moment-timezone';
 import reportActions from '../../../redux/report/actions';
@@ -25,7 +26,7 @@ const columns = [{
   key: 'zone',
   render: (text, record) => (
     <span>
-      { record.label.substring(0,20) }
+      { renderTitle(record.label) }
     </span>
   )
 }, {

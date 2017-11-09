@@ -2,6 +2,7 @@ import React from 'react';
 import Table from '../../uielements/table';
 import Pagination from '../../uielements/pagination';
 import Button from '../../uielements/button';
+import renderTitle from '../../../helpers/text/filter';
 import { Row, Col, DatePicker } from 'antd'
 import Moment from 'react-moment';
 import moment from 'moment-timezone';
@@ -25,7 +26,7 @@ const columns = [{
   key: 'title',
   render: (text, record) => (
     <span>
-      { record.campaign.title.substring(0,20) }
+      { renderTitle(record.campaign.title) }
     </span>
   )
 }, {
