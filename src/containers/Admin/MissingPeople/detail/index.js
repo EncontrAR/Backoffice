@@ -181,7 +181,7 @@ class MissingPersonDetail extends Component {
 				    			<Input
 					    			style={{ 'marginRight': '20px', 'width': '70%' }}
 	                  addonBefore="Foto"
-	                  value={this.state.photo}
+	                  value={this.props.missingPerson.photo}
 	                  disabled={!this.state.edition}
 	                  onChange={this.handleInputPhoto.bind(this, 'photo')}
 	                />
