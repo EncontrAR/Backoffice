@@ -34,7 +34,7 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const from = { pathname: '/admin' };
+    const from = { pathname: '/admin/campaigns' };
     if (this.props.isLoggedIn) {
       return <Redirect to={from} />;
     }
