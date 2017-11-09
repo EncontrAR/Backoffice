@@ -26,6 +26,7 @@ class CampaignDetailGeneral extends React.Component {
     super(props)
     this.state = {
       edition: false,
+      original_campaign: {}
     }
   }
 
@@ -50,13 +51,16 @@ class CampaignDetailGeneral extends React.Component {
   handleOnPress = () => {
     if (this.state.edition) {
       this.props.updateCampaign(Object.assign({}, this.props.campaign, {}))
+      this.setState({ edition: false, original_campaign: {} })
+    } else {
+      var originalCampaign = Object.assign({}, this.props.campaign, {})
+      this.setState({ original_campaign: originalCampaign, edition: true })
     }
-
-    this.setState({ edition: !this.state.edition })
   }
 
   handleOnCancel = () => {
-    this.setState({ edition: false })
+    this.props.preUpdateCampaign(this.state.original_campaign)
+    this.setState({ edition: false, original_campaign: {} })
   }
 
   handleInputChange(field, e) {
@@ -85,7 +89,7 @@ class CampaignDetailGeneral extends React.Component {
           value={this.props.campaign.status}
           onChange={ this.handleStatusChange }
           disabled={!this.state.edition}
-          style={{ width: '125px' }}>
+          style={{ width: '25%' }}>
 
           <Option value="actived">Activada</Option>
           <Option value="canceled">Cancelada</Option>
@@ -99,7 +103,7 @@ class CampaignDetailGeneral extends React.Component {
         <Select 
           value={this.props.campaign.status}
           disabled={ true }
-          style={{ width: '125px' }}>
+          style={{ width: '25%' }}>
 
           <Option value="expired">Expirada</Option>
 
