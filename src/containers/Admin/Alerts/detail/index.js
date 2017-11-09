@@ -1,7 +1,8 @@
 import React from 'react';
 import LayoutWrapper from '../../../../components/utility/layoutWrapper';
 import Box from '../../../../components/utility/box';
-import { Input, Button, Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
+import Moment from 'react-moment';
 import alertActions from '../../../../redux/alert/actions';
 import { connect } from 'react-redux';
 
@@ -22,8 +23,8 @@ class AlertDetail extends React.Component {
 	render() {
 
 		var styleColLeft = {
-		  paddingLeft: '30px',
-		  paddingRight: '30px'
+		  paddingLeft: '50px',
+		  paddingRight: '50px'
 		}
 
 		return (
@@ -32,10 +33,10 @@ class AlertDetail extends React.Component {
 		      <div className="isoBillingAddressWrapper">
 
 		        <Row type="flex" justify="space-between">
-		          <Col span={4}>
-		            <h3 className="isoSectionTitle">Detalle de alerta</h3>
+		          <Col span={6}>
+		            <h3 className="isoSectionTitle">Detalle de alerta #{this.props.alert.id}</h3>
 		          </Col>
-		          <Col span={5} offset={15}>
+		          <Col span={5} offset={13}>
 		             <Row type="flex" justify="end">
 		              <Button type="default" size="small" onClick={this.handleBack}>Volver</Button>
 		            </Row>
@@ -44,32 +45,30 @@ class AlertDetail extends React.Component {
 
 		        <Row>
 		          <Col style={styleColLeft} span={18}>
-		            <Input
-		              addonBefore="Título"
-		              value={this.props.alert.title}
-		              disabled={true}
-		            />
 
-		            <Input
-		            	style={{ marginTop: '15px' }}
-		              addonBefore="Zona"
-		              value={this.props.alert.zone.label}
-		              disabled={true}
-		            />
+		            <div>
+			            <span>
+			            	<b>Título:</b> {this.props.alert.title}
+							    </span>
+		            </div>
 
-		            <Input
-		            	style={{ marginTop: '15px' }}
-		              addonBefore="Notificaciones enviadas"
-		              value={this.props.alert.notifications_sent}
-		              disabled={true}
-		            />
+		            <div style={{ marginTop: '15px' }}>
+			            <span>
+			            	<b>Zona:</b> {this.props.alert.zone.label}
+							    </span>
+		            </div>
 
-		            <Input
-		            	style={{ marginTop: '15px' }}
-		              addonBefore="Fecha de creación"
-		              value={this.props.alert.created_at}
-		              disabled={true}
-		            />
+		            <div style={{ marginTop: '15px' }}>
+			            <span>
+			            	<b>Notificaciones enviadas:</b> {this.props.alert.notifications_sent}
+							    </span>
+		            </div>
+
+		            <div style={{ marginTop: '15px' }}>
+			            <span>
+			            	<b>Fecha de creación:</b> <Moment format="DD/MM/YYYY">{this.props.alert.created_at}</Moment>
+							    </span>
+		            </div>
 
 		          </Col>
 		        </Row>
