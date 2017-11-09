@@ -107,9 +107,15 @@ export default class Conversation extends React.Component {
 		return (
       <div className="isoLayoutContentWrapper">
         <div className="isoLayoutContent">
-  				<ul ref="listChat" style={ ulStyle }>
-          	{ this.renderChatLog() }
-          </ul>
+          <Row type="flex" justify="end">
+            <Button onClick={() => this.props.history.goBack()}>Volver</Button>
+          </Row>
+          <br />
+          <Row>
+            <ul ref="listChat" style={ ulStyle }>
+              { this.renderChatLog() }
+            </ul>
+          </Row>
           <Row type="flex" justify="start">
             <Input 
               style={{ width: '80%', marginRight: '10px' }}
