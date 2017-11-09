@@ -53,7 +53,11 @@ export default class Conversation extends React.Component {
       received: (stream) => {
         if (stream.type === 'historial') {
           let chatLogs = this.state.chatLogs
-          this.setState({ chatLogs: chatLogs.concat(stream.data) })
+          var finderFullname = 'Finder'
+          if (stream.finder && stream.finder.name && stream.finder.lastname) {
+            finderFullname = stream.finder.name + ' ' + stream.finder.lastname
+          }
+          this.setState({ finderFullname: finderFullname, chatLogs: chatLogs.concat(stream.data) })
         } else if (stream.type === 'new_message') {
           let chatLogs = this.state.chatLogs
           chatLogs.push(stream.data)
@@ -75,7 +79,7 @@ export default class Conversation extends React.Component {
 
   renderChatLog() {
     return this.state.chatLogs.map((msg) => {
-      const sender = msg.sender === 'user' ? 'Yo' : 'Finder'
+      const sender = msg.sender === 'user' ? 'Operador' : this.state.finderFullname
 
       return (
         <li key={`chat_${msg.id}`}>
