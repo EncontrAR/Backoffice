@@ -19,11 +19,6 @@ class AdminRouter extends React.Component {
         />
         <Route
           exact
-          path={`${url}/users/:id`}
-          component={asyncComponent(() => import("./Users/detail/index.js"))}
-        />
-        <Route
-          exact
           path={`${url}/campaigns`}
           component={asyncComponent(() => import("./Campaigns/Campaigns"))}
         />

@@ -36,14 +36,6 @@ const columns = [{
       <Moment format="DD/MM/YYYY">{record.created_at}</Moment>
     </span>
   )
-}, {
-  title: 'Acción',
-  key: 'action',
-  render: (text, record) => (
-    <span>
-      <Link to={`/admin/users/${record.id}`}>Ver detalle</Link>
-    </span>
-  ),
 }];
 
 const initialPage = 1
