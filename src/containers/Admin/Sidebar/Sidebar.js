@@ -99,6 +99,16 @@ class Sidebar extends Component {
             selectedKeys={[app.current]}
             onOpenChange={this.onOpenChange}
             className="isoDashboardMenu">
+            <Menu.Item key="users">
+              <Link to={`${url}/users`}>
+                <span className="isoMenuHolder" style={submenuColor}>
+                  <i className="ion-person-stalker" />
+                  <span className="nav-text">
+                    <IntlMessages id="admin.sidebar.users" />
+                  </span>
+                </span>
+              </Link>
+            </Menu.Item>
             <Menu.Item key="campaigns">
               <Link to={`${url}/campaigns`}>
                 <span className="isoMenuHolder" style={submenuColor}>

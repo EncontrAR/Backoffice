@@ -9,6 +9,21 @@ class AdminRouter extends React.Component {
       <Switch>
         <Route
           exact
+          path={`${url}/users`}
+          component={asyncComponent(() => import("./Users/Users.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/users/new`}
+          component={asyncComponent(() => import("./Users/new/index.js"))}
+        />
+        <Route
+          exact
+          path={`${url}/users/:id`}
+          component={asyncComponent(() => import("./Users/detail/index.js"))}
+        />
+        <Route
+          exact
           path={`${url}/campaigns`}
           component={asyncComponent(() => import("./Campaigns/Campaigns"))}
         />
